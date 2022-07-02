@@ -1,0 +1,26 @@
+{
+  "name": "v14",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "format": "prettier --write ."
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@discordjs/builders": "^0.13.0-dev.1649937819-b01f414",
+    "@discordjs/rest": "^0.4.0-dev.1649160494-402514f",
+    "chalk": "^4.1.2",
+    "discord-api-types": "^0.31.2",
+    "discord.js": "^14.0.0-dev.1650413390-585169f",
+    "express": "^4.17.3",
+    "glob": "^7.2.0",
+    "mongoose": "^6.2.9",
+    "ms": "^2.1.3",
+    "node-fetch": "^2.6.7",
+    "prettier": "^2.7.1"
+  }
+}
