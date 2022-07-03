@@ -154,7 +154,7 @@ module.exports = {
       .setDescription(
         `> ${final[0].item.longdescription || final[0].item.description}
 
-<:arrow_right:961073009106485299> **Donation Value:** ⏣ ${final[0].item.cost.toLocaleString()} (${CurrencyFormat(
+<:whiteDot:962849666674860142> **Donation Value:** ⏣ ${final[0].item.cost.toLocaleString()} (${CurrencyFormat(
           final[0].item.cost
         )})`
       )
@@ -168,7 +168,6 @@ module.exports = {
         { name: "ID:", value: `\`${final[0].item.id}\``, inline: true }
       )
       .setThumbnail(`${final[0].item.image}`)
-      .setFooter({ text: "Please use the command sb credits to view credits." })
       .setColor("#303136");
     interaction.reply({
       embeds: [finalEmbed],

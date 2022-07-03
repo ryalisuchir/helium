@@ -342,6 +342,34 @@ The maximum amount you can remove is **⏣ ${dSchema.donations.heist.toLocaleStr
 
 		}
 
+let newSchema;
+		newSchema = await overallSchema.findOne({
+			guildID: interaction.guild.id
+		});
+					let channel = interaction.guild.channels.cache.get(newSchema.donationLogs)
+
+		try {
+		let ahh = {
+				user: interaction.options.getMember("user"),
+				amount: interaction.options.getInteger("amount")
+			};
+			channel.send({
+				embeds: [
+					new EmbedBuilder()
+					.setDescription(`${interaction.user} successfully removed donations:
+<:whiteDot:962849666674860142> **User:** ${ahh.user}
+<:whiteDot:962849666674860142> **Amount:** ${ahh.amount.toLocaleString()}
+<:whiteDot:962849666674860142> **Category:** ${subcommand}
+
+Time: <t:${Math.round(Date.now()/1000)}>`)
+					.setColor('303136')
+				]
+			})
+		} catch (err) {
+			overallSchema.donationLogs = null
+			await overallSchema.save()
+		}
+		
 
 if (interaction.guild.id === "986631502362198036") {
 

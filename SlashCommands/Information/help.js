@@ -41,9 +41,7 @@ module.exports = {
     });
     const embed2 = new EmbedBuilder()
       .setTitle("𓂃 ៸៸ Help Menu:")
-      .setDescription(
-        `<:green:925389347631534090> Use the dropdown menu below to select a genre of commands.`
-      )
+      				.setDescription('All commands are slash commands. Use <:slash:980152110127669279> to begin.')
       .setColor("303136");
     const components = (state) => [
       new ActionRowBuilder().addComponents(
