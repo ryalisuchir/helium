@@ -5,27 +5,27 @@ const {
   ActionRowBuilder,
   SelectMenuBuilder,
   Interaction,
-  ButtonBuilder,
+	ApplicationCommandType
 } = require("discord.js");
 
 module.exports = {
   name: "help",
-  description: "A help menu.",
-	type: 1,
+  description: "A help menu, to check out all of the bot's commands.",
+	type: ApplicationCommandType.ChatInput,
   /**
    *
    * @param {Client} client
-   * @param {Interaction} interaction
+   * @param {Message} message
    * @param {String[]} args
    */
   run: async (client, interaction, args) => {
     const directories = [
-      ...new Set(client.slashCommands.map((cmd) => cmd.directory)),
+      ...new Set(client.commands.map((cmd) => cmd.directory)),
     ];
     const formatString = (str) =>
       `${str[0].toUpperCase()}${str.slice(1).toLowerCase()}`;
     const categories = directories.map((dir) => {
-      const getCommands = client.slashCommands
+      const getCommands = client.commands
         .filter((cmd) => cmd.directory === dir)
         .map((cmd) => {
           return {
@@ -57,15 +57,15 @@ module.exports = {
               value: "information",
             },
             {
-              label: "Dank Memer",
-              value: "mankdemer",
-            },
-            {
               label: "Requests",
               value: "requests",
             },
             {
-              label: "ServerConfiguration",
+              label: "Dank Memer",
+              value: "mankdemer",
+            },
+            {
+              label: "Configuration",
               value: "serverconfiguration",
             },
             {
@@ -75,22 +75,24 @@ module.exports = {
             {
               label: "User Specific",
               value: "user_specific",
-            }
+            },
           )
-      )
+      ),
     ];
 
     const initialMessage = await interaction.reply({
       embeds: [embed2],
       components: components(false),
     });
-    const filter = (interaction) => interaction.user.id === interaction.user.id;
+    const filter = (i) => i.user.id === interaction.user.id;
     const collector = interaction.channel.createMessageComponentCollector({
       filter,
-      componentType: "SELECT_MENU",
+      componentType: 3,
       time: 18000,
     });
+
     collector.on("collect", (interaction) => {
+
       const [directory] = interaction.values;
       const category = categories.find(
         (x) => x.directory.toLowerCase() === directory
@@ -101,7 +103,7 @@ module.exports = {
           category.commands.map((cmd) => {
             return {
               name: `**${cmd.name}**`,
-              value: `<:green:925389347631534090> ${cmd.description}`,
+              value: `<:black_reply:982382122335625306> ${cmd.description}`,
               inline: false,
             };
           })
@@ -110,10 +112,11 @@ module.exports = {
 
       interaction.update({
         embeds: [categoryEmbed],
+				components: components(false)
       });
     });
     collector.on("end", () => {
-      initialMessage.edit({
+      interaction.editReply({
         components: components(true),
       });
     });

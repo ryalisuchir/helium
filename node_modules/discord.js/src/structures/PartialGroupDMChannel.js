@@ -1,13 +1,13 @@
 'use strict';
 
-const { Channel } = require('./Channel');
-const { Error } = require('../errors');
+const { BaseChannel } = require('./BaseChannel');
+const { Error, ErrorCodes } = require('../errors');
 
 /**
  * Represents a Partial Group DM Channel on Discord.
- * @extends {Channel}
+ * @extends {BaseChannel}
  */
-class PartialGroupDMChannel extends Channel {
+class PartialGroupDMChannel extends BaseChannel {
   constructor(client, data) {
     super(client, data);
 
@@ -46,11 +46,11 @@ class PartialGroupDMChannel extends Channel {
   }
 
   delete() {
-    return Promise.reject(new Error('DELETE_GROUP_DM_CHANNEL'));
+    return Promise.reject(new Error(ErrorCodes.DeleteGroupDMChannel));
   }
 
   fetch() {
-    return Promise.reject(new Error('FETCH_GROUP_DM_CHANNEL'));
+    return Promise.reject(new Error(ErrorCodes.FetchGroupDMChannel));
   }
 }
 

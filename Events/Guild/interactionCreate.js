@@ -21,9 +21,4 @@ module.exports = new Event("interactionCreate", async (interaction) => {
 
     await command.run(client, interaction, args).catch(console.error);
   }
-
-  if (interaction.isContextMenuCommand()) {
-    const command = client.commands.get(interaction.commandName);
-    if (command) await command.run(client, interaction).catch(console.error);
-  }
 });

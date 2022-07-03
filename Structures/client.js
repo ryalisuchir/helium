@@ -14,11 +14,7 @@ const utils = require("./Functions/utility");
 
 class ExtendedClient extends Client {
   commands = new Collection();
-  aliases = new Collection();
   slashCommands = new Collection();
-  snipes = {};
-  editSnipes = {};
-  reactionSnipes = {};
   config = config;
   colors = colors;
   util = new utils();

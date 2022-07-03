@@ -2,17 +2,17 @@
 
 const { Collection } = require('@discordjs/collection');
 const Attachment = require('./Attachment');
-const Interaction = require('./Interaction');
+const BaseInteraction = require('./BaseInteraction');
 const InteractionWebhook = require('./InteractionWebhook');
 const InteractionResponses = require('./interfaces/InteractionResponses');
 
 /**
  * Represents a command interaction.
- * @extends {Interaction}
+ * @extends {BaseInteraction}
  * @implements {InteractionResponses}
  * @abstract
  */
-class CommandInteraction extends Interaction {
+class CommandInteraction extends BaseInteraction {
   constructor(client, data) {
     super(client, data);
 
@@ -39,6 +39,12 @@ class CommandInteraction extends Interaction {
      * @type {ApplicationCommandType}
      */
     this.commandType = data.data.type;
+
+    /**
+     * The id of the guild the invoked application command is registered to
+     * @type {?Snowflake}
+     */
+    this.commandGuildId = data.data.guild_id ?? null;
 
     /**
      * Whether the reply to this interaction has been deferred
@@ -80,7 +86,7 @@ class CommandInteraction extends Interaction {
    * @property {Collection<Snowflake, User>} [users] The resolved users
    * @property {Collection<Snowflake, GuildMember|APIGuildMember>} [members] The resolved guild members
    * @property {Collection<Snowflake, Role|APIRole>} [roles] The resolved roles
-   * @property {Collection<Snowflake, Channel|APIChannel>} [channels] The resolved channels
+   * @property {Collection<Snowflake, BaseChannel|APIChannel>} [channels] The resolved channels
    * @property {Collection<Snowflake, Message|APIMessage>} [messages] The resolved messages
    * @property {Collection<Snowflake, Attachment>} [attachments] The resolved attachments
    */
@@ -133,7 +139,7 @@ class CommandInteraction extends Interaction {
     if (attachments) {
       result.attachments = new Collection();
       for (const attachment of Object.values(attachments)) {
-        const patched = new Attachment(attachment.url, attachment.filename, attachment);
+        const patched = new Attachment(attachment);
         result.attachments.set(attachment.id, patched);
       }
     }
@@ -189,7 +195,7 @@ class CommandInteraction extends Interaction {
       if (role) result.role = this.guild?.roles._add(role) ?? role;
 
       const attachment = resolved.attachments?.[option.value];
-      if (attachment) result.attachment = new Attachment(attachment.url, attachment.filename, attachment);
+      if (attachment) result.attachment = new Attachment(attachment);
     }
 
     return result;

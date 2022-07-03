@@ -5,8 +5,7 @@ const express = require("express");
 const app = express();
 
 app.get("/", (req, res) => {
-  const ip = req.header("x-forwarded-for") ?? req.socket.remoteAddress;
-  console.log(ip);
+  res.send('Status: Online')
 });
 
 app.listen(3000, () => {
