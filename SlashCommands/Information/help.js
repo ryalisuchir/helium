@@ -80,19 +80,20 @@ module.exports = {
             }
           )
       ),
-      new ActionRowBuilder().addComponents(
+new ActionRowBuilder().addComponents(
         new ButtonBuilder()
           .setStyle(ButtonStyle.Link)
           .setLabel("Invite")
           .setURL(
             "https://discord.com/api/oauth2/authorize?client_id=958848741790609468&permissions=8&scope=bot%20applications.commands"
-          )
-      ),
+						)
+	)
     ];
+
 
     const initialMessage = await interaction.reply({
       embeds: [embed2],
-      components: [components(false)],
+      components: components(false)
     });
     const filter = (i) => i.user.id === interaction.user.id;
     const collector = interaction.channel.createMessageComponentCollector({
@@ -112,7 +113,7 @@ module.exports = {
           category.commands.map((cmd) => {
             return {
               name: `**${cmd.name}**`,
-              value: `<:black_reply:982382122335625306> ${cmd.description}`,
+              value: `<:whiteDot:962849666674860142> ${cmd.description}`,
               inline: false,
             };
           })
@@ -121,12 +122,12 @@ module.exports = {
 
       interaction.update({
         embeds: [categoryEmbed],
-        components: [components(false)],
+        components: components(false)
       });
     });
     collector.on("end", () => {
       interaction.editReply({
-        components: [components(true)],
+        components: components(true)
       });
     });
   },
