@@ -22,7 +22,7 @@ module.exports = {
    */
   run: async (client, interaction, args) => {
     const items = await fetch(
-      "https://raw.githubusercontent.com/DankMemer/dankmemer.lol/rewrite/src/data/itemsData.json"
+      "https:raw.githubusercontent.com/DankMemer/dankmemer.lol/rewrite/src/data/itemsData.json"
     ).then((r) => r.json());
 
     const queryy = interaction.options.getString("query");

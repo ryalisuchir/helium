@@ -25,7 +25,5 @@ const donationSchema = new Schema({
     giveaway: { type: Number, required: false, default: 0 },
     heist: { type: Number, required: false, default: 0 },
   },
-
-  //
 });
 module.exports = model("donationSchema", donationSchema);
