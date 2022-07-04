@@ -5,7 +5,7 @@ const express = require("express");
 const app = express();
 
 app.get("/", (req, res) => {
-  res.send('Status: Online')
+  res.send("Status: Online");
 });
 
 app.listen(3000, () => {
@@ -14,6 +14,9 @@ app.listen(3000, () => {
 const client = new ExtendedClient();
 module.exports = client;
 
+process.on("rateLimit", (data) => {
+  if (data.timeout > 500) process.kill(1);
+});
 process.on("unhandledRejection", (reason, p) => {
   console.log(chalk.gray("—————————————————————————————————"));
   console.log(

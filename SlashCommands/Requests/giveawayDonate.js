@@ -57,9 +57,10 @@ module.exports = {
     let giveawayInformation = {
       time: interaction.options.getString("time"),
       winners: interaction.options.getInteger("winners"),
-      requirements: interaction.options.getString("requirements") || "Not specified.",
+      requirements:
+        interaction.options.getString("requirements") || "Not specified.",
       prize: interaction.options.getString("prize"),
-			message: interaction.options.getString("message") || "Not specified.",
+      message: interaction.options.getString("message") || "Not specified.",
     };
 
     let donationProfile;

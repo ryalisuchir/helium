@@ -38,7 +38,7 @@ module.exports = {
   run: async (client, interaction, args) => {
     let heistInformation = {
       amount: interaction.options.getString("amount"),
-			message: interaction.options.getString("message") || "Not specified.",
+      message: interaction.options.getString("message") || "Not specified.",
     };
 
     let donationProfile;

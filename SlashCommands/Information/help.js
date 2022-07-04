@@ -5,13 +5,15 @@ const {
   ActionRowBuilder,
   SelectMenuBuilder,
   Interaction,
-	ApplicationCommandType
+  ApplicationCommandType,
+  ButtonBuilder,
+  ButtonStyle,
 } = require("discord.js");
 
 module.exports = {
   name: "help",
   description: "A help menu, to check out all of the bot's commands.",
-	type: ApplicationCommandType.ChatInput,
+  type: ApplicationCommandType.ChatInput,
   /**
    *
    * @param {Client} client
@@ -41,7 +43,9 @@ module.exports = {
     });
     const embed2 = new EmbedBuilder()
       .setTitle("𓂃 ៸៸ Help Menu:")
-      				.setDescription('All commands are slash commands. Use <:slash:980152110127669279> to begin.')
+      .setDescription(
+        "All commands are slash commands. Use <:slash:980152110127669279> to begin."
+      )
       .setColor("303136");
     const components = (state) => [
       new ActionRowBuilder().addComponents(
@@ -73,14 +77,22 @@ module.exports = {
             {
               label: "User Specific",
               value: "user_specific",
-            },
+            }
+          )
+      ),
+      new ActionRowBuilder().addComponents(
+        new ButtonBuilder()
+          .setStyle(ButtonStyle.Link)
+          .setLabel("Invite")
+          .setURL(
+            "https://discord.com/api/oauth2/authorize?client_id=958848741790609468&permissions=8&scope=bot%20applications.commands"
           )
       ),
     ];
 
     const initialMessage = await interaction.reply({
       embeds: [embed2],
-      components: components(false),
+      components: [components(false)],
     });
     const filter = (i) => i.user.id === interaction.user.id;
     const collector = interaction.channel.createMessageComponentCollector({
@@ -90,7 +102,6 @@ module.exports = {
     });
 
     collector.on("collect", (interaction) => {
-
       const [directory] = interaction.values;
       const category = categories.find(
         (x) => x.directory.toLowerCase() === directory
@@ -110,12 +121,12 @@ module.exports = {
 
       interaction.update({
         embeds: [categoryEmbed],
-				components: components(false)
+        components: [components(false)],
       });
     });
     collector.on("end", () => {
       interaction.editReply({
-        components: components(true),
+        components: [components(true)],
       });
     });
   },

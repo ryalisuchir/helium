@@ -9,6 +9,6 @@ const guildConfiguration = new Schema({
   eventsPing: { type: String, required: false },
   giveawayPing: { type: String, required: false },
   heistPing: { type: String, required: false },
-	donationLogs: { type: String, required: false }
+  donationLogs: { type: String, required: false },
 });
 module.exports = model("guildConfiguration", guildConfiguration);
