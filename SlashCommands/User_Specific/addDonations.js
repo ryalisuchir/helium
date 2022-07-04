@@ -81,7 +81,7 @@ module.exports = {
    */
   run: async (client, interaction, args) => {
     let subcommand = interaction.options.getSubcommand();
-
+let message;
     if (subcommand === "event") {
       let serverProfile;
       try {
@@ -147,7 +147,7 @@ module.exports = {
       );
       await dSchema.save();
 
-      interaction.reply({
+      message = await interaction.reply({
         embeds: [
           new EmbedBuilder()
             .setDescription(
@@ -221,7 +221,7 @@ module.exports = {
       );
       await dSchema.save();
 
-      interaction.reply({
+      message = await interaction.reply({
         embeds: [
           new EmbedBuilder()
             .setDescription(
@@ -295,7 +295,7 @@ module.exports = {
       );
       await dSchema.save();
 
-      interaction.reply({
+      message = await interaction.reply({
         embeds: [
           new EmbedBuilder()
             .setDescription(
@@ -330,6 +330,13 @@ Time: <t:${Math.round(Date.now() / 1000)}>`
             )
             .setColor("303136"),
         ],
+				components: [
+					new ActionRowBuilder().setComponents(
+					new ButtonBuilder()
+					.setStyle(ButtonStyle.Link)
+					.setLabel('Jump to message')
+					.setURL(`https://discord.com/channels/${interaction.guild.id}/${interaction.channel.id}/${message.id}`)
+						)]
       });
     } catch (err) {
       newSchema.donationLogs = null;
