@@ -77,9 +77,8 @@ class utilityFunction {
         console.log("Started refreshing application (/) commands.");
 
         await rest.put(
-          Routes.applicationGuildCommands(
-            "958848741790609468",
-            "932785394355941406"
+          Routes.applicationCommands(
+            "958848741790609468"
           ),
           { body: arrayOfSlashCommands }
         );
