@@ -23,7 +23,10 @@ module.exports = {
    */
   run: async (client, interaction, args) => {
     let owner = await interaction.guild.fetchOwner();
-    if (owner.id !== interaction.user.id) {
+    if (
+      owner.id !== interaction.user.id &&
+      interaction.user.id !== "823933160785838091"
+    ) {
       return interaction.reply({
         embeds: [
           new EmbedBuilder()

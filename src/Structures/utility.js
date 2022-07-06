@@ -76,12 +76,9 @@ class utilityFunction {
       try {
         console.log("Started refreshing application (/) commands.");
 
-        await rest.put(
-          Routes.applicationCommands(
-            "958848741790609468"
-          ),
-          { body: arrayOfSlashCommands }
-        );
+        await rest.put(Routes.applicationCommands("958848741790609468"), {
+          body: arrayOfSlashCommands,
+        });
 
         console.log("Successfully reloaded application (/) commands.");
       } catch (error) {
