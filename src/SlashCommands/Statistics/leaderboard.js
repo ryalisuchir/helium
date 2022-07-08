@@ -39,6 +39,16 @@ module.exports = {
     if (subcommand === "donations") {
       let find = await donationSchema.find({ guildID: interaction.guild.id });
 
+			if (!find) {
+				interaction.reply({
+					embeds: [
+						new EmbedBuilder()
+						.setDescription('No one in this guild has donated yet, or it has not been cached.')
+						.setColor('303136')
+					]
+				})
+			};
+
       find = find
         .filter((value) => interaction.guild.members.cache.get(value.userID))
         .sort((a, b) => {
@@ -80,9 +90,9 @@ module.exports = {
       let desc = mapped
         .slice(0, top)
         .join("\n")
-        .replace("`(#1)`", `<:first:955488158986960926> `)
-        .replace("`(#2)`", `<:second:955488127932301322> `)
-        .replace("`(#3)`", `<:third:955488092620468244> `)
+        .replace("`(#1)`", `<:onenew:995023672215613530> `)
+        .replace("`(#2)`", `<:twonew:995023774565011497> `)
+        .replace("`(#3)`", `<:threenew:995023782823604234> `)
         .replace("`(#4)`", `<a:sahadyellow:973374838519509083> `)
         .replace("`(#5)`", `<a:sahadyellow:973374838519509083> `)
         .replace("`(#6)`", `<a:sahadyellow:973374838519509083> `)
@@ -146,9 +156,9 @@ module.exports = {
       let desc = mapped
         .slice(0, top)
         .join("\n")
-        .replace("`(#1)`", `<:first:955488158986960926> `)
-        .replace("`(#2)`", `<:second:955488127932301322> `)
-        .replace("`(#3)`", `<:third:955488092620468244> `)
+        .replace("`(#1)`", `<:onenew:995023672215613530> `)
+        .replace("`(#2)`", `<:twonew:995023774565011497> `)
+        .replace("`(#3)`", `<:threenew:995023782823604234> `)
         .replace("`(#4)`", `<a:sahadyellow:973374838519509083> `)
         .replace("`(#5)`", `<a:sahadyellow:973374838519509083> `)
         .replace("`(#6)`", `<a:sahadyellow:973374838519509083> `)
