@@ -39,15 +39,17 @@ module.exports = {
     if (subcommand === "donations") {
       let find = await donationSchema.find({ guildID: interaction.guild.id });
 
-			if (!find) {
-				interaction.reply({
-					embeds: [
-						new EmbedBuilder()
-						.setDescription('No one in this guild has donated yet, or it has not been cached.')
-						.setColor('303136')
-					]
-				})
-			};
+      if (!find) {
+        interaction.reply({
+          embeds: [
+            new EmbedBuilder()
+              .setDescription(
+                "No one in this guild has donated yet, or it has not been cached."
+              )
+              .setColor("303136"),
+          ],
+        });
+      }
 
       find = find
         .filter((value) => interaction.guild.members.cache.get(value.userID))
