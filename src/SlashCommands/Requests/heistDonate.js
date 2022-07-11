@@ -65,9 +65,6 @@ module.exports = {
       });
     }
 
-    donationProfile.pendingDonations.heist = true;
-    await donationProfile.save();
-
     let serverProfile;
     try {
       serverProfile = await overallSchema.findOne({
@@ -87,6 +84,8 @@ module.exports = {
             .setColor("303136"),
         ],
       });
+    donationProfile.pendingDonations.heist = true;
+    await donationProfile.save();
     interaction.reply({
       content: `Your request went through <t:${Math.round(
         Date.now() / 1000
