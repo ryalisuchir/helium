@@ -33,7 +33,7 @@ module.exports = {
           return {
             name: cmd.name,
             description:
-              cmd.description || "There is no description for this command.",
+              cmd.description || "There is no description for this command...",
           };
         });
       return {
