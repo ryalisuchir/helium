@@ -149,37 +149,37 @@ module.exports = {
     }
 
     if (interaction.options.getString("ping") === "everyone") {
-			interaction.reply({
-				content: `Your request will go through in the next few seconds...`,
-				ephemeral: true
-			})
+      interaction.reply({
+        content: `Your request will go through in the next few seconds...`,
+        ephemeral: true,
+      });
       interaction.channel.send({
         content: `@everyone`,
-				allowedMentions: { parse: ['everyone']}
+        allowedMentions: { parse: ["everyone"] },
       });
-			interaction.channel.send({
+      interaction.channel.send({
         embeds: [
           new EmbedBuilder()
             .setDescription(`${interaction.user} partnered with a new server.`)
             .setColor("303136"),
         ],
-			})
+      });
     }
     if (interaction.options.getString("ping") === "here") {
-			interaction.reply({
-				content: `Your request will go through shortly...`,
-				ephemeral: true
-			})
-      interaction.channel.send({
-        content: `@here`
+      interaction.reply({
+        content: `Your request will go through shortly...`,
+        ephemeral: true,
       });
-			interaction.channel.send({
+      interaction.channel.send({
+        content: `@here`,
+      });
+      interaction.channel.send({
         embeds: [
           new EmbedBuilder()
             .setDescription(`${interaction.user} partnered with a new server.`)
             .setColor("303136"),
         ],
-			})
+      });
     }
 
     if (interaction.options.getString("ping") === "giveaways") {
@@ -194,9 +194,13 @@ module.exports = {
         });
       } else {
         interaction.reply({
-          content: `${serverProfile.giveawayPing}`
+          content: `Your request will go through shortly...`,
+          ephemeral: true,
         });
-				interaction.channel.send({
+        interaction.channel.send({
+          content: `${serverProfile.giveawayPing}`,
+        });
+        interaction.channel.send({
           embeds: [
             new EmbedBuilder()
               .setDescription(
@@ -204,7 +208,7 @@ module.exports = {
               )
               .setColor("303136"),
           ],
-				})
+        });
       }
     }
     if (interaction.options.getString("ping") === "events") {
@@ -219,9 +223,13 @@ module.exports = {
         });
       } else {
         interaction.reply({
-          content: `${serverProfile.eventsPing}`
+          content: `Your request will go through shortly...`,
+          ephemeral: true,
         });
-				interaction.channel.send({
+        interaction.channel.send({
+          content: `${serverProfile.eventsPing}`,
+        });
+        interaction.channel.send({
           embeds: [
             new EmbedBuilder()
               .setDescription(
@@ -229,7 +237,7 @@ module.exports = {
               )
               .setColor("303136"),
           ],
-				})
+        });
       }
     }
     if (interaction.options.getString("ping") === "heists") {
@@ -244,9 +252,13 @@ module.exports = {
         });
       } else {
         interaction.reply({
-          content: `${serverProfile.heistPing}`
+          content: `Your request will go through shortly...`,
+          ephemeral: true,
         });
-				interaction.channel.send({
+        interaction.channel.send({
+          content: `${serverProfile.heistPing}`,
+        });
+        interaction.channel.send({
           embeds: [
             new EmbedBuilder()
               .setDescription(
@@ -254,7 +266,7 @@ module.exports = {
               )
               .setColor("303136"),
           ],
-				})
+        });
       }
     }
   },
