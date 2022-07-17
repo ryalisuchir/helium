@@ -371,56 +371,56 @@ Time: <t:${Math.round(Date.now() / 1000)}>`
         parseInt(donationProfileRoles.donations.heist);
 
       const member = donation.user;
-      if (totalAmount > 10000000) {
+      if (totalAmount >= 10000000) {
         let role = interaction.guild.roles.cache.get("986711729385930803");
         const alreadyHasRole = member.roles.cache.has(role.id);
         if (!alreadyHasRole) {
           member.roles.add(role);
         }
       }
-      if (totalAmount > 25000000) {
+      if (totalAmount >= 25000000) {
         let role2 = interaction.guild.roles.cache.get("986635695407890482");
         const alreadyHasRole2 = member.roles.cache.has(role2.id);
         if (!alreadyHasRole2) {
           member.roles.add(role2);
         }
       }
-      if (totalAmount > 50000000) {
+      if (totalAmount >= 50000000) {
         let role3 = interaction.guild.roles.cache.get("986635696347414548");
         const alreadyHasRole3 = member.roles.cache.has(role3.id);
         if (!alreadyHasRole3) {
           member.roles.add(role3);
         }
       }
-      if (totalAmount > 75000000) {
+      if (totalAmount >= 75000000) {
         let role3 = interaction.guild.roles.cache.get("986635697169526905");
         const alreadyHasRole3 = member.roles.cache.has(role3.id);
         if (!alreadyHasRole3) {
           member.roles.add(role3);
         }
       }
-      if (totalAmount > 100000000) {
+      if (totalAmount >= 100000000) {
         let role3 = interaction.guild.roles.cache.get("986635697962238013");
         const alreadyHasRole3 = member.roles.cache.has(role3.id);
         if (!alreadyHasRole3) {
           member.roles.add(role3);
         }
       }
-      if (totalAmount > 250000000) {
+      if (totalAmount >= 250000000) {
         let role3 = interaction.guild.roles.cache.get("986635699254087701");
         const alreadyHasRole3 = member.roles.cache.has(role3.id);
         if (!alreadyHasRole3) {
           member.roles.add(role3);
         }
       }
-      if (totalAmount > 500000000) {
+      if (totalAmount >= 500000000) {
         let role3 = interaction.guild.roles.cache.get("986635699874824253");
         const alreadyHasRole3 = member.roles.cache.has(role3.id);
         if (!alreadyHasRole3) {
           member.roles.add(role3);
         }
       }
-      if (totalAmount > 750000000) {
+      if (totalAmount >= 750000000) {
         let role3 = interaction.guild.roles.cache.get("986635701401571368");
         const alreadyHasRole3 = member.roles.cache.has(role3.id);
         if (!alreadyHasRole3) {
@@ -428,7 +428,7 @@ Time: <t:${Math.round(Date.now() / 1000)}>`
         }
       }
 
-      if (totalAmount > 1000000000) {
+      if (totalAmount >= 1000000000) {
         let role3 = interaction.guild.roles.cache.get("986635702290771999");
         const alreadyHasRole3 = member.roles.cache.has(role3.id);
         if (!alreadyHasRole3) {
@@ -436,7 +436,7 @@ Time: <t:${Math.round(Date.now() / 1000)}>`
         }
       }
 
-      if (totalAmount > 2000000000) {
+      if (totalAmount >= 2000000000) {
         let role3 = interaction.guild.roles.cache.get("986635703125426236");
         const alreadyHasRole3 = member.roles.cache.has(role3.id);
         if (!alreadyHasRole3) {

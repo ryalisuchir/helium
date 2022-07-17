@@ -4,6 +4,7 @@ const guildConfiguration = new Schema({
   guildID: { type: String, required: true },
   eventsManager: { type: String, required: false },
   giveawayManager: { type: String, required: false },
+  partnershipManager: { type: String, required: false },
   heistManager: { type: String, required: false },
   middlemanManager: { type: String, required: false },
   eventsPing: { type: String, required: false },

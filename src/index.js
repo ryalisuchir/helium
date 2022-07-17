@@ -1,5 +1,3 @@
-//july 13 
-
 process.traceDeprecation = true;
 const ExtendedClient = require("./Structures/client");
 const chalk = require("chalk");

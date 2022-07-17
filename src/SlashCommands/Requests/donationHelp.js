@@ -64,7 +64,10 @@ module.exports = {
       let managerID = serverProfile.eventsManager.slice(3, -1);
       if (
         !interaction.member.roles.cache.has(managerID) &&
-        !interaction.member.permissions.has([PermissionFlagsBits.Administrator]) && interaction.user.id !== "823933160785838091"
+        !interaction.member.permissions.has([
+          PermissionFlagsBits.Administrator,
+        ]) &&
+        interaction.user.id !== "823933160785838091"
       ) {
         return interaction.reply({
           embeds: [
@@ -109,7 +112,10 @@ module.exports = {
       let managerID = serverProfile.giveawayManager.slice(3, -1);
       if (
         !interaction.member.roles.cache.has(managerID) &&
-        !interaction.member.permissions.has([PermissionFlagsBits.Administrator]) && interaction.user.id !== "823933160785838091"
+        !interaction.member.permissions.has([
+          PermissionFlagsBits.Administrator,
+        ]) &&
+        interaction.user.id !== "823933160785838091"
       ) {
         return interaction.reply({
           embeds: [
@@ -156,7 +162,10 @@ module.exports = {
       let managerID = serverProfile.heistManager.slice(3, -1);
       if (
         !interaction.member.roles.cache.has(managerID) &&
-        !interaction.member.permissions.has([PermissionFlagsBits.Administrator]) && interaction.user.id !== "823933160785838091"
+        !interaction.member.permissions.has([
+          PermissionFlagsBits.Administrator,
+        ]) &&
+        interaction.user.id !== "823933160785838091"
       ) {
         return interaction.reply({
           embeds: [

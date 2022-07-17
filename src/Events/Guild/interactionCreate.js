@@ -1,5 +1,6 @@
 const Event = require("../../Structures/Classes/event");
 const client = require("../../index");
+const { InteractionType } = require("discord.js");
 module.exports = new Event("interactionCreate", async (interaction) => {
   if (interaction.isChatInputCommand()) {
     const command = client.slashCommands.get(interaction.commandName);
@@ -20,5 +21,18 @@ module.exports = new Event("interactionCreate", async (interaction) => {
     }
 
     await command.run(client, interaction, args).catch(console.error);
+  }
+
+  if (interaction.type === InteractionType.ApplicationCommandAutocomplete) {
+    if (interaction.commandName === "partnerping") {
+      const focusedValue = interaction.options.getFocused();
+      const choices = ["everyone", "here", "giveaways", "events", "heists"];
+      const filtered = choices.filter((choice) =>
+        choice.startsWith(focusedValue)
+      );
+      await interaction.respond(
+        filtered.map((choice) => ({ name: choice, value: choice }))
+      );
+    }
   }
 });

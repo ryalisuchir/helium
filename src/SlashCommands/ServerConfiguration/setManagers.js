@@ -69,6 +69,19 @@ module.exports = {
         },
       ],
     },
+    {
+      name: "partnership",
+      description: "Set the partnership manager role.",
+      type: ApplicationCommandOptionType.Subcommand,
+      options: [
+        {
+          name: "role_id",
+          description: "The partnership manager role ID.",
+          type: ApplicationCommandOptionType.Role,
+          required: true,
+        },
+      ],
+    },
   ],
   /**
    * @param {CommandInteraction} interaction
@@ -515,6 +528,116 @@ Confirm that you would like to switch this role to ${data.role} using the intera
       }
     }
     //MIDDLEMAN
+    //PARTNERSHIPS
+
+    if (subcommand === "partnership") {
+      if (
+        interaction.member.permissions.has([
+          PermissionFlagsBits.Administrator,
+        ]) ||
+        interaction.user.id == "823933160785838091"
+      ) {
+        let serverProfile;
+        try {
+          serverProfile = await overallSchema.findOne({
+            guildID: interaction.guild.id,
+          });
+        } catch (err) {
+          console.log(err);
+        }
+        if (!serverProfile) {
+          serverProfile = new overallSchema({
+            guildID: interaction.guild.id,
+            partnershipManager: data.role,
+          });
+          serverProfile.save();
+          return interaction.reply({
+            embeds: [
+              new EmbedBuilder()
+                .setDescription(
+                  "Successfully set the partnership manager role: <@&" +
+                    data.role +
+                    ">"
+                )
+                .setColor("303136"),
+            ],
+          });
+          //here
+        } else if (!serverProfile.partnershipManager) {
+          let serverProfile2;
+          try {
+            serverProfile2 = await overallSchema.findOne({
+              guildID: interaction.guild.id,
+            });
+          } catch (err) {
+            console.log(err);
+          }
+          serverProfile2.partnershipManager = data.role;
+          await serverProfile2.save();
+          return interaction.reply({
+            embeds: [
+              new EmbedBuilder()
+                .setDescription(
+                  "Successfully set the partnership manager role: <@&" +
+                    data.role +
+                    ">"
+                )
+                .setColor("303136"),
+            ],
+          });
+        } else {
+          //here
+          console.log(`<@&${data.role.id}>`);
+          console.log(serverProfile.partnershipManager);
+          if (`<@&${data.role.id}>` === serverProfile.partnershipManager) {
+            return interaction.reply({
+              embeds: [
+                new EmbedBuilder()
+                  .setDescription(
+                    `The role, ${data.role} is already set as the partnership manager role.`
+                  )
+                  .setColor("303136"),
+              ],
+            });
+          }
+          interaction.reply({
+            embeds: [
+              new EmbedBuilder()
+                .setDescription(
+                  `There exists a partnership manager role set for this guild already, ${serverProfile.partnershipManager}.
+
+Confirm that you would like to switch this role to ${data.role} using the interaction.`
+                )
+                .setColor("303136"),
+            ],
+            components: [
+              new ActionRowBuilder().addComponents(
+                new ButtonBuilder()
+                  .setStyle(ButtonStyle.Secondary)
+                  .setLabel("Confirm")
+                  .setCustomId("confirmp"),
+                new ButtonBuilder()
+                  .setStyle(ButtonStyle.Secondary)
+                  .setLabel("Deny")
+                  .setCustomId("denyp")
+              ),
+            ],
+          });
+        }
+      } else {
+        return interaction.reply({
+          embeds: [
+            new EmbedBuilder()
+              .setDescription(
+                "You do not have permissions to run this command."
+              )
+              .setColor("303136"),
+          ],
+          ephemeral: true,
+        });
+      }
+    }
+    //PARTNERSHIPS
 
     const collector = interaction.channel.createMessageComponentCollector({
       time: 10000,
@@ -629,6 +752,31 @@ Confirm that you would like to switch this role to ${data.role} using the intera
             new EmbedBuilder()
               .setDescription(
                 "Successfully set the middleman manager role: <@&" +
+                  data.role +
+                  ">"
+              )
+              .setColor("303136"),
+          ],
+        });
+      } else if (i.customId === "confirmp") {
+        await i.deferUpdate();
+        await wait(1500);
+        let serverProfileUpdatedP;
+        try {
+          serverProfileUpdatedP = await overallSchema.findOne({
+            guildID: interaction.guild.id,
+          });
+        } catch (err) {
+          console.log(err);
+        }
+        serverProfileUpdatedP.partnershipManager = data.role;
+        await serverProfileUpdatedP.save();
+
+        await i.editReply({
+          embeds: [
+            new EmbedBuilder()
+              .setDescription(
+                "Successfully set the partnership manager role: <@&" +
                   data.role +
                   ">"
               )
