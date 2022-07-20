@@ -17,6 +17,7 @@
     "discord-api-types": "^0.31.2",
     "discord.js": "^14.0.1",
     "express": "^4.17.3",
+    "fuzzy-search": "^3.2.1",
     "glob": "^7.2.0",
     "humanize-duration": "^3.27.2",
     "mongoose": "^6.4.4",

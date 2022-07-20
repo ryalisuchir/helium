@@ -199,7 +199,7 @@ You won **$${winAmount.toLocaleString()}**.
           }
           
           const tieEmbed = new EmbedBuilder()
-            .settitle(`${interaction.user.username}'s gambling game`)
+            .setTitle(`${interaction.user.username}'s gambling game`)
             .setDescription(`
 You tied... You lost **$${tieAmount.toLocaleString()}**.
 > **New Balance:** $${cDB.wallet.toLocaleString()}`)
