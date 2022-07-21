@@ -22,15 +22,15 @@ module.exports = {
       required: true,
     },
     {
-      name: "message",
-      description: "What message ID of the Dank Memer trade embed.",
-      type: ApplicationCommandOptionType.String,
-      required: true,
-    },
-    {
       name: "user",
       description: "What user you are adding donations to.",
       type: ApplicationCommandOptionType.User,
+      required: true,
+    },
+    {
+      name: "message_id",
+      description: "What message ID of the Dank Memer trade embed.",
+      type: ApplicationCommandOptionType.String,
       required: true,
     },
   ],
@@ -40,7 +40,7 @@ module.exports = {
   run: async (client, interaction, args) => {
     const donationInformation = {
       subsection: interaction.options.getString("subsection"),
-      message: interaction.options.getString("message"),
+      message: interaction.options.getString("message_id"),
       user: interaction.options.getUser("user"),
     };
 
@@ -155,6 +155,7 @@ module.exports = {
       }
     }
     if (donationInformation.subsection === "heist") {
+     if (!serverProfile.heistManager || !serverProfile.heistPing) {
       return interaction.reply({
         embeds: [
           new EmbedBuilder()
@@ -166,6 +167,7 @@ module.exports = {
             .setColor("303136"),
         ],
       });
+		 }
       let managerID = serverProfile.heistManager.slice(3, -1);
       if (
         !interaction.member.roles.cache.has(managerID) &&
@@ -193,7 +195,9 @@ module.exports = {
     if (!dankMessage.embeds.length) {
       return interaction.reply({
         embeds: [
-          new EmbedBuilder().setDescription("Specify the correct message."),
+          new EmbedBuilder()
+					.setDescription("Specify the correct message.")
+					.setColor('303136'),
         ],
         ephemeral: true,
       });
@@ -309,19 +313,148 @@ ${error.message}`
           `Added ⏣ ${toAdd.toLocaleString()} to ${
             donationInformation.user
           }'s *${donationInformation.subsection}* donations.`
-        ),
+        )
+				.setColor('303136'),
       ],
     });
+   let newSchema;
+    newSchema = await overallSchema.findOne({
+      guildID: interaction.guild.id,
+    });
+    let channel = interaction.guild.channels.cache.get(newSchema.donationLogs);
+
+    try {
+      let ahh = {
+        user: interaction.options.getMember("user"),
+      };
+      channel.send({
+        embeds: [
+          new EmbedBuilder()
+            .setDescription(
+              `${interaction.user} successfully added donations:
+<:whiteDot:962849666674860142> **User:** ${ahh.user}
+<:whiteDot:962849666674860142> **Amount:** ${toAdd.toLocaleString()}
+<:whiteDot:962849666674860142> **Category:** ${subcommand}
+
+Time: <t:${Math.round(Date.now() / 1000)}>`
+            )
+            .setColor("303136"),
+        ],
+        components: [
+          new ActionRowBuilder().setComponents(
+            new ButtonBuilder()
+              .setStyle(ButtonStyle.Link)
+              .setLabel("Jump to message")
+              .setURL(
+                `https://discord.com/channels/${interaction.guild.id}/${interaction.channel.id}/${message.id}`
+              )
+          ),
+        ],
+      });
+    } catch (err) {
+      newSchema.donationLogs = null;
+      await newSchema.save();
+    }
+
+    if (interaction.guild.id === "986631502362198036") {
+      let donation = {
+        user: interaction.options.getMember("user"),
+      };
+      let donationProfileRoles;
+      donationProfileRoles = await donationSchema.findOne({
+        userID: donation.user.id,
+        guildID: interaction.guild.id,
+      });
+
+      let totalAmount =
+        parseInt(donationProfileRoles.donations.event) +
+        parseInt(donationProfileRoles.donations.giveaway) +
+        parseInt(donationProfileRoles.donations.heist);
+
+      const member = donation.user;
+      if (totalAmount >= 10000000) {
+        let role = interaction.guild.roles.cache.get("986711729385930803");
+        const alreadyHasRole = member.roles.cache.has(role.id);
+        if (!alreadyHasRole) {
+          member.roles.add(role);
+        }
+      }
+      if (totalAmount >= 25000000) {
+        let role2 = interaction.guild.roles.cache.get("986635695407890482");
+        const alreadyHasRole2 = member.roles.cache.has(role2.id);
+        if (!alreadyHasRole2) {
+          member.roles.add(role2);
+        }
+      }
+      if (totalAmount >= 50000000) {
+        let role3 = interaction.guild.roles.cache.get("986635696347414548");
+        const alreadyHasRole3 = member.roles.cache.has(role3.id);
+        if (!alreadyHasRole3) {
+          member.roles.add(role3);
+        }
+      }
+      if (totalAmount >= 75000000) {
+        let role3 = interaction.guild.roles.cache.get("986635697169526905");
+        const alreadyHasRole3 = member.roles.cache.has(role3.id);
+        if (!alreadyHasRole3) {
+          member.roles.add(role3);
+        }
+      }
+      if (totalAmount >= 100000000) {
+        let role3 = interaction.guild.roles.cache.get("986635697962238013");
+        const alreadyHasRole3 = member.roles.cache.has(role3.id);
+        if (!alreadyHasRole3) {
+          member.roles.add(role3);
+        }
+      }
+      if (totalAmount >= 250000000) {
+        let role3 = interaction.guild.roles.cache.get("986635699254087701");
+        const alreadyHasRole3 = member.roles.cache.has(role3.id);
+        if (!alreadyHasRole3) {
+          member.roles.add(role3);
+        }
+      }
+      if (totalAmount >= 500000000) {
+        let role3 = interaction.guild.roles.cache.get("986635699874824253");
+        const alreadyHasRole3 = member.roles.cache.has(role3.id);
+        if (!alreadyHasRole3) {
+          member.roles.add(role3);
+        }
+      }
+      if (totalAmount >= 750000000) {
+        let role3 = interaction.guild.roles.cache.get("986635701401571368");
+        const alreadyHasRole3 = member.roles.cache.has(role3.id);
+        if (!alreadyHasRole3) {
+          member.roles.add(role3);
+        }
+      }
+
+      if (totalAmount >= 1000000000) {
+        let role3 = interaction.guild.roles.cache.get("986635702290771999");
+        const alreadyHasRole3 = member.roles.cache.has(role3.id);
+        if (!alreadyHasRole3) {
+          member.roles.add(role3);
+        }
+      }
+
+      if (totalAmount >= 2000000000) {
+        let role3 = interaction.guild.roles.cache.get("986635703125426236");
+        const alreadyHasRole3 = member.roles.cache.has(role3.id);
+        if (!alreadyHasRole3) {
+          member.roles.add(role3);
+        }
+      }
+    }
   },
 };
 
-function getItems(arr) {
-  let a = "";
-  arr.forEach((value) => {
+function getItems(item) {
+  let information = "";
+  item.forEach((value) => {
     if (value.includes("⏣ ")) {
-      a += "\n" + value.split("⏣ ")[1].replace(/(\*|,)/g, "");
+      information += "\n" + value.split("⏣ ")[1].replace(/(\*|,)/g, "");
     } else {
-      let aa = value
+      let information2 = value
         .split("**")
         .join("")
         .split(" ")
@@ -335,10 +468,10 @@ function getItems(arr) {
         .join("")
         .replace(/(>|:)/g, " ")
         .split(" ")
-        .filter((a) => a.includes("x"))[0]
+        .filter((information) => information.includes("x"))[0]
         .replace(/(<a|,|<)/g, "");
-      a += "\n" + number + aa[aa.length - 1].toLowerCase();
+      information += "\n" + number + information2[information2.length - 1].toLowerCase();
     }
   });
-  return a;
+  return information;
 };
