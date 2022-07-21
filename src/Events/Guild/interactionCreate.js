@@ -36,7 +36,18 @@ module.exports = new Event("interactionCreate", async (interaction) => {
     }
 		    if (interaction.commandName === "additem") {
       const focusedValue = interaction.options.getFocused();
-      const choices = ["collectable", "sellable", "work items", "pepe item", "tool", "power-up", "item pack", "drop item", "loot box", "tradeable"];
+      const choices = ["collectable", "sellable", "tool", "power-up", "item pack", "drop item", "loot box", "tradeable"];
+      const filtered = choices.filter((choice) =>
+        choice.startsWith(focusedValue)
+      );
+      await interaction.respond(
+        filtered.map((choice) => ({ name: choice, value: choice }))
+      );
+    }
+		
+		    if (interaction.commandName === "adddonations") {
+      const focusedValue = interaction.options.getFocused();
+      const choices = ["event", "giveaway", "heist"];
       const filtered = choices.filter((choice) =>
         choice.startsWith(focusedValue)
       );

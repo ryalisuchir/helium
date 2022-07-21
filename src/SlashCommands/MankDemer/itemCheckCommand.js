@@ -4,6 +4,7 @@ const {
   ApplicationCommandOptionType,
 } = require("discord.js");
 const fetch = require("node-fetch");
+const itemsSchema = require('../../Schemas/MankDemer/itemsSchema');
 module.exports = {
   name: "value",
   description: "Check the value of a certain item.",
@@ -126,6 +127,24 @@ module.exports = {
 
     let final = search(queryy).slice(0, 1);
 
+		let schema;
+		schema = await itemsSchema.findOne({
+			item_id: `${final[0].item.id}`
+		});
+		if (!schema) {
+			return interaction.reply({
+				embeds: [
+					new EmbedBuilder()
+					.setDescription(`My database shows that such an item exists, but I am unable to find it.`)
+					.setFooter({
+						text: 'Please DM Shark#2538 if this issue continues to persist after 24 hours from now.'
+					})
+					.setColor('303136')
+				],
+				ephemeral: true
+			})
+		}
+		
     let finalrarity;
     function determineRarity(rarity) {
       let rarityAmount = parseInt(rarity);
@@ -149,14 +168,19 @@ module.exports = {
       return `${scaled.toFixed(2)}${last}`;
     }
 
+		
+
     let finalEmbed = new EmbedBuilder()
       .setTitle(`${final[0].item.name}`)
       .setDescription(
-        `> ${final[0].item.longdescription || final[0].item.description}
-
-<:whiteDot:962849666674860142> **Donation Value:** ⏣ ${final[0].item.cost.toLocaleString()} (${CurrencyFormat(
-          final[0].item.cost
-        )})`
+        `\n> ${final[0].item.longdescription || final[0].item.description}
+╭───╯
+┃ <:whiteDot:962849666674860142> **Donation Value:** ⏣ ${schema.value.toLocaleString()} (${CurrencyFormat(
+          schema.value
+        )})
+╰┈┈➤
+\n
+`
       )
       .addFields(
         {
