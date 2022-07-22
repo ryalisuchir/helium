@@ -13,11 +13,10 @@ const {
 } = require("discord.js");
 
 module.exports = new Event("ready", async (client) => {
-  client.on("debug", console.log).on("warn", console.log);
   client.user.setPresence({
     activities: [
       {
-        name: `Stormy Bay`,
+        name: `Krypto Dankers`,
         type: "WATCHING",
       },
     ],

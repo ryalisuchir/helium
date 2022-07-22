@@ -28,7 +28,7 @@ module.exports = {
       required: true,
     },
     {
-      name: "message_id",
+      name: "message",
       description: "What message ID of the Dank Memer trade embed.",
       type: ApplicationCommandOptionType.String,
       required: true,
@@ -40,7 +40,7 @@ module.exports = {
   run: async (client, interaction, args) => {
     const donationInformation = {
       subsection: interaction.options.getString("subsection"),
-      message: interaction.options.getString("message_id"),
+      message: interaction.options.getString("message"),
       user: interaction.options.getUser("user"),
     };
 
@@ -155,19 +155,19 @@ module.exports = {
       }
     }
     if (donationInformation.subsection === "heist") {
-     if (!serverProfile.heistManager || !serverProfile.heistPing) {
-      return interaction.reply({
-        embeds: [
-          new EmbedBuilder()
-            .setDescription(
-              `This guild has not setup heist managers and/or heist pings. Please use the following commands:
+      if (!serverProfile.heistManager || !serverProfile.heistPing) {
+        return interaction.reply({
+          embeds: [
+            new EmbedBuilder()
+              .setDescription(
+                `This guild has not setup heist managers and/or heist pings. Please use the following commands:
 <:slash:980152110127669279> setmanager <heist> <role>
 <:slash:980152110127669279> setpings <heist> <role>`
-            )
-            .setColor("303136"),
-        ],
-      });
-		 }
+              )
+              .setColor("303136"),
+          ],
+        });
+      }
       let managerID = serverProfile.heistManager.slice(3, -1);
       if (
         !interaction.member.roles.cache.has(managerID) &&
@@ -192,12 +192,13 @@ module.exports = {
     const dankMessage = await interaction.channel.messages.fetch(
       donationInformation.message
     );
+
     if (!dankMessage.embeds.length) {
       return interaction.reply({
         embeds: [
           new EmbedBuilder()
-					.setDescription("Specify the correct message.")
-					.setColor('303136'),
+            .setDescription("Specify the correct message.")
+            .setColor("303136"),
         ],
         ephemeral: true,
       });
@@ -309,15 +310,16 @@ ${error.message}`
     return interaction.reply({
       embeds: [
         donationEmbed,
-        new EmbedBuilder().setDescription(
-          `Added ⏣ ${toAdd.toLocaleString()} to ${
-            donationInformation.user
-          }'s *${donationInformation.subsection}* donations.`
-        )
-				.setColor('303136'),
+        new EmbedBuilder()
+          .setDescription(
+            `Added ⏣ ${toAdd.toLocaleString()} to ${
+              donationInformation.user
+            }'s *${donationInformation.subsection}* donations.`
+          )
+          .setColor("303136"),
       ],
     });
-   let newSchema;
+    let newSchema;
     newSchema = await overallSchema.findOne({
       guildID: interaction.guild.id,
     });
@@ -470,8 +472,9 @@ function getItems(item) {
         .split(" ")
         .filter((information) => information.includes("x"))[0]
         .replace(/(<a|,|<)/g, "");
-      information += "\n" + number + information2[information2.length - 1].toLowerCase();
+      information +=
+        "\n" + number + information2[information2.length - 1].toLowerCase();
     }
   });
   return information;
-};
+}

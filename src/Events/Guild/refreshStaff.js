@@ -99,13 +99,15 @@ The message ID is an 18-digit number for every message. You can find it by doubl
           ),
         new EmbedBuilder().setColor("303136").setDescription(`
 **Useful commands:**
-Adding donations: \`/adddonations <event/giveaways> <user> <amount>\`
+Adding donations: \`/adddonations <event/giveaways> <message_id> <user>\`
 Removing donations: \`/removedonations <event/giveaways> <user> <amount>\`
 Pinging: \`/ping <events/giveaways>\`
 Creating giveaways: \`+gstart <time> <winners> <requirements> <Prize/Event>\`
 Reroll giveaways: \`+greroll <message_id>\`
 
 Please fill in the needed information along with optional information when pinging.
+
+**To add donations, please use the message ID of the successful trade embed from Dank Memer.**
 
 - **Wait 15 minutes before pinging giveaways.**
 - **Winners have 12 hours to claim their giveaway (exception: the user has the <@&986818089473683506> role - then they get 24 hours)

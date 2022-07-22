@@ -34,9 +34,18 @@ module.exports = new Event("interactionCreate", async (interaction) => {
         filtered.map((choice) => ({ name: choice, value: choice }))
       );
     }
-		    if (interaction.commandName === "additem") {
+    if (interaction.commandName === "additem") {
       const focusedValue = interaction.options.getFocused();
-      const choices = ["collectable", "sellable", "tool", "power-up", "item pack", "drop item", "loot box", "tradeable"];
+      const choices = [
+        "collectable",
+        "sellable",
+        "tool",
+        "power-up",
+        "item pack",
+        "drop item",
+        "loot box",
+        "tradeable",
+      ];
       const filtered = choices.filter((choice) =>
         choice.startsWith(focusedValue)
       );
@@ -44,8 +53,8 @@ module.exports = new Event("interactionCreate", async (interaction) => {
         filtered.map((choice) => ({ name: choice, value: choice }))
       );
     }
-		
-		    if (interaction.commandName === "adddonations") {
+
+    if (interaction.commandName === "adddonations") {
       const focusedValue = interaction.options.getFocused();
       const choices = ["event", "giveaway", "heist"];
       const filtered = choices.filter((choice) =>

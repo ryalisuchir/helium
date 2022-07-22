@@ -15,7 +15,7 @@ const itemSchema = new Schema({
   attack: Number,
   wisdom: Number,
   dexterity: Number,
-  type: String
+  type: String,
 });
 
-module.exports = model('itemSchema', itemSchema);
+module.exports = model("itemSchema", itemSchema);
