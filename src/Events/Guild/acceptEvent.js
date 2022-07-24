@@ -16,9 +16,11 @@ module.exports = new Event("interactionCreate", async (interaction) => {
   if (!interaction.isButton()) return;
   if (interaction.customId.startsWith("accept-event-")) {
     let messageID = interaction.customId.slice(13, -38);
-    let donorID = interaction.customId.slice(32, -19);
-    let channelID = interaction.customId.slice(51);
-
+    let donorID = interaction.customId.slice(33, -19);
+    let channelID = interaction.customId.slice(52);
+    console.log(messageID);
+    console.log(donorID);
+    console.log(channelID);
     let serverProfile;
     try {
       serverProfile = await overallSchema.findOne({
@@ -130,8 +132,11 @@ Please send them what you requested to donate.`
     //HEIST
   } else if (interaction.customId.startsWith("accept-heist-")) {
     let messageID = interaction.customId.slice(13, -38);
-    let donorID = interaction.customId.slice(32, -19);
-    let channelID = interaction.customId.slice(51);
+    let donorID = interaction.customId.slice(33, -19);
+    let channelID = interaction.customId.slice(52);
+    console.log(messageID);
+    console.log(donorID);
+    console.log(channelID);
     let serverProfile;
     try {
       serverProfile = await overallSchema.findOne({
@@ -239,8 +244,11 @@ Please send them what you requested to donate.`
     await dSchema.save();
   } else if (interaction.customId.startsWith("accept-giveaway")) {
     let messageID = interaction.customId.slice(16, -38);
-    let donorID = interaction.customId.slice(35, -19);
-    let channelID = interaction.customId.slice(54);
+    let donorID = interaction.customId.slice(36, -19);
+    let channelID = interaction.customId.slice(55);
+    console.log(messageID);
+    console.log(donorID);
+    console.log(channelID);
 
     let serverProfile;
     try {

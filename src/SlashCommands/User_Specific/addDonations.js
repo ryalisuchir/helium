@@ -189,8 +189,8 @@ module.exports = {
         });
       }
     }
-		await interaction.deferReply()
-		wait(1500)
+    await interaction.deferReply();
+    wait(1500);
     const dankMessage = await interaction.channel.messages.fetch(
       donationInformation.message
     );
@@ -199,14 +199,16 @@ module.exports = {
       return interaction.editReply({
         embeds: [
           new EmbedBuilder()
-            .setDescription("Specify the correct message. If it's a valid messsage, this means that I'm broken again, so please DM Shark#2538.")
+            .setDescription(
+              "Specify the correct message. If it's a valid messsage, this means that I'm broken again, so please DM Shark#2538."
+            )
             .setColor("303136"),
         ],
         ephemeral: true,
       });
     }
-		console.log(dankMessage)
-		console.log(donationInformation.message)
+    console.log(dankMessage);
+    console.log(donationInformation.message);
     const dbItems = await itemsDb.find({});
     const itemms = [];
     for (const iitem of dbItems) {
@@ -367,7 +369,7 @@ Time: <t:${Math.round(Date.now() / 1000)}>`
         user: interaction.options.getMember("user"),
       };
       let donationProfileRoles;
-      donationProfileRoles = await donationSchema.findOne({
+      donationProfileRoles = await donationDB.findOne({
         userID: donation.user.id,
         guildID: interaction.guild.id,
       });

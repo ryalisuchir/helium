@@ -128,9 +128,7 @@ module.exports = {
           );
         });
 
-      
-       
-          let top = 10;
+      let top = 10;
 
       let mapped = find.map((value, index) => {
         return `\`(#${index + 1})\` ${
