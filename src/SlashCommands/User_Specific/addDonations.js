@@ -199,7 +199,7 @@ module.exports = {
       return interaction.editReply({
         embeds: [
           new EmbedBuilder()
-            .setDescription("Specify the correct message.")
+            .setDescription("Specify the correct message. If it's a valid messsage, this means that I'm broken again, so please DM Shark#2538.")
             .setColor("303136"),
         ],
         ephemeral: true,
@@ -311,7 +311,7 @@ ${error.message}`
         ephemeral: true,
       });
     }
-    return interaction.editReply({
+    interaction.editReply({
       embeds: [
         donationEmbed,
         new EmbedBuilder()
