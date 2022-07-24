@@ -128,16 +128,9 @@ module.exports = {
           );
         });
 
-      let top;
-      if (!isNaN(args[0])) {
-        top = args[0];
-      } else {
-        if (args[0] !== "all") {
-          top = 10;
-        } else {
-          top = find.length;
-        }
-      }
+      
+       
+          let top = 10;
 
       let mapped = find.map((value, index) => {
         return `\`(#${index + 1})\` ${

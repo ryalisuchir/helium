@@ -4,6 +4,7 @@ const {
   ApplicationCommandType,
   PermissionFlagsBits,
 } = require("discord.js");
+const wait = require("node:timers/promises").setTimeout;
 const itemsDb = require("../../Schemas/MankDemer/itemsSchema");
 const donationDB = require("../../Schemas/donationSchema");
 const overallSchema = require("../../Schemas/guildConfigurationSchema");
@@ -188,13 +189,14 @@ module.exports = {
         });
       }
     }
-
+		await interaction.deferReply()
+		wait(1500)
     const dankMessage = await interaction.channel.messages.fetch(
       donationInformation.message
     );
 
     if (!dankMessage.embeds.length) {
-      return interaction.reply({
+      return interaction.editReply({
         embeds: [
           new EmbedBuilder()
             .setDescription("Specify the correct message.")
@@ -203,6 +205,8 @@ module.exports = {
         ephemeral: true,
       });
     }
+		console.log(dankMessage)
+		console.log(donationInformation.message)
     const dbItems = await itemsDb.find({});
     const itemms = [];
     for (const iitem of dbItems) {
@@ -293,7 +297,7 @@ module.exports = {
 
       dbUser.save();
     } catch (error) {
-      return interaction.reply({
+      return interaction.editReply({
         embeds: [
           new EmbedBuilder()
             .setDescription(
@@ -307,7 +311,7 @@ ${error.message}`
         ephemeral: true,
       });
     }
-    return interaction.reply({
+    return interaction.editReply({
       embeds: [
         donationEmbed,
         new EmbedBuilder()
