@@ -25,6 +25,20 @@ class utilityFunction {
   async startClient() {
     this.client.login(process.env["TOKEN"]);
 
+    const commandsFiles = await globPromise(
+      `${__dirname}/../Text_Commands/**/*.js`
+    );
+    commandsFiles.map((value) => {
+      const file = require(value);
+      const splitted = value.split("/");
+      const directory = splitted[splitted.length - 2];
+
+      if (file.name) {
+        console.log(file.name);
+        const properties = { directory, ...file };
+        this.client.commands.set(file.name, properties);
+      }
+    });
     const commandFiles = await globPromise(
       `${__dirname}/../SlashCommands/**/*.js`
     );
@@ -39,7 +53,7 @@ class utilityFunction {
 
       if (file.name) {
         const properties = { directory, ...file };
-        this.client.commands.set(file.name, properties);
+        this.client.slashCommands.set(file.name, properties);
       }
     });
 
@@ -87,7 +101,15 @@ class utilityFunction {
     })();
 
     this.client.on("ready", async () => {
-      await this.client.slashCommands.set(arrayOfSlashCommands);
+      this.client.user.setPresence({
+        activities: [
+          {
+            name: `Krypto Dankers`,
+            type: "WATCHING",
+          },
+        ],
+        status: "dnd",
+      });
       //
       console.log(chalk.red.bold("——————————[ Client Statistics ]——————————"));
       console.log(
@@ -95,9 +117,7 @@ class utilityFunction {
         chalk.cyan.bold(`${this.client.user.tag} ៸៸`)
       );
       console.log(
-        chalk.gray(
-          `Default Prefix:` + chalk.red(` ${this.client.config.prefix}`)
-        )
+        chalk.gray(`Default Prefix:` + chalk.red(` ${this.client.prefix}`))
       );
       console.log(
         chalk.gray("꒱ Watching"),

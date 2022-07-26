@@ -53,6 +53,7 @@ module.exports = {
 
       find = find
         .filter((value) => interaction.guild.members.cache.get(value.userID))
+        .filter((u) => !u.bot)
         .sort((a, b) => {
           return (
             b.donations.event +
@@ -117,6 +118,7 @@ module.exports = {
 
       find = find
         .filter((value) => interaction.guild.members.cache.get(value.userID))
+        .filter((u) => !u.bot)
         .sort((a, b) => {
           return (
             b.timesAccepted.event +

@@ -4,8 +4,6 @@ const {
   Partials,
   Collection,
 } = require("discord.js");
-const { colors } = require("./Configuration/colors");
-const { config } = require("./Configuration/configuration");
 const Command = require("./Classes/command");
 const SlashCommand = require("./Classes/slashCommand");
 const ContextCommand = require("./Classes/contextCommand");
@@ -14,13 +12,13 @@ const utils = require("./Functions/utility");
 
 class ExtendedClient extends Client {
   commands = new Collection();
+  aliases = new Collection();
   slashCommands = new Collection();
-  config = config;
-  colors = colors;
+  prefix = "krypto ";
   util = new utils();
   constructor() {
     super({
-      intents: 32767,
+      intents: 3276543,
       partials: [Partials.Channel, Partials.Message, Partials.Reaction],
     });
     this.utils = new utilityFunction(this);
