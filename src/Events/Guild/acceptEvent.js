@@ -15,9 +15,17 @@ const wait = require("node:timers/promises").setTimeout;
 module.exports = new Event("interactionCreate", async (interaction) => {
   if (!interaction.isButton()) return;
   if (interaction.customId.startsWith("accept-event-")) {
-    let messageID = interaction.customId.slice(13, -39);
-    let donorID = interaction.customId.slice(33, -20);
+    let messageID = interaction.customId.slice(13, -38);
+    let donorID = interaction.customId.slice(33, -19);
     let channelID = interaction.customId.slice(52);
+
+    if (messageID.includes("-")) {
+      messageID = messageID.slice(0, -1);
+    }
+    if (donorID.includes("-")) {
+      donorID = donorID.slice(0, -1);
+    }
+
     console.log(messageID);
     console.log(donorID);
     console.log(channelID);
@@ -131,9 +139,15 @@ Please send them what you requested to donate.`
     //HEIST
     //HEIST
   } else if (interaction.customId.startsWith("accept-heist-")) {
-    let messageID = interaction.customId.slice(13, -39);
-    let donorID = interaction.customId.slice(33, -20);
+    let messageID = interaction.customId.slice(13, -38);
+    let donorID = interaction.customId.slice(33, -19);
     let channelID = interaction.customId.slice(52);
+    if (messageID.includes("-")) {
+      messageID = messageID.slice(0, -1);
+    }
+    if (donorID.includes("-")) {
+      donorID = donorID.slice(0, -1);
+    }
     console.log(messageID);
     console.log(donorID);
     console.log(channelID);
@@ -243,9 +257,15 @@ Please send them what you requested to donate.`
     dSchema.pendingDonations.heist = false;
     await dSchema.save();
   } else if (interaction.customId.startsWith("accept-giveaway")) {
-    let messageID = interaction.customId.slice(16, -39);
-    let donorID = interaction.customId.slice(36, -20);
+    let messageID = interaction.customId.slice(16, -38);
+    let donorID = interaction.customId.slice(36, -19);
     let channelID = interaction.customId.slice(55);
+    if (messageID.includes("-")) {
+      messageID = messageID.slice(0, -1);
+    }
+    if (donorID.includes("-")) {
+      donorID = donorID.slice(0, -1);
+    }
     console.log(messageID);
     console.log(donorID);
     console.log(channelID);
