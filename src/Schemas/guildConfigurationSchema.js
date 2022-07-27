@@ -11,5 +11,13 @@ const guildConfiguration = new Schema({
   giveawayPing: { type: String, required: false },
   heistPing: { type: String, required: false },
   donationLogs: { type: String, required: false },
+  giveawayCooldown: {
+    type: String,
+    default: 0,
+  },
+  eventCooldown: {
+    type: String,
+    default: 0,
+  },
 });
 module.exports = model("guildConfiguration", guildConfiguration);

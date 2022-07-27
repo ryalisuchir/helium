@@ -106,7 +106,7 @@ module.exports = {
         .replace("ٴ", "");
 
       let leaderBoardEmbed = new EmbedBuilder()
-        .setTitle(`Overall Donation Statistics`)
+        .setTitle(`THIS IS A BUG, AND DOES NOT SHOW ALL USERS - BEING FIXED`)
         .setDescription(
           `> \`(#${place})\` - ${interaction.user.tag}\n\n${desc}`
         )
@@ -164,7 +164,7 @@ module.exports = {
         .replace("ٴ", "");
 
       let leaderBoardEmbed = new EmbedBuilder()
-        .setTitle(`Overall Managing Statistics`)
+        .setTitle(`THIS IS A BUG, AND DOES NOT SHOW ALL USERS - BEING FIXED`)
         .setDescription(
           `> \`(#${place})\` - ${interaction.user.tag}\n\n${desc}`
         )

@@ -1,5 +1,6 @@
 const overallSchema = require("../../Schemas/guildConfigurationSchema");
 const wait = require("node:timers/promises").setTimeout;
+const prettyMilliseconds = require("pretty-ms");
 const {
   EmbedBuilder,
   ApplicationCommandType,
@@ -149,6 +150,71 @@ module.exports = {
           ],
           ephemeral: true,
         });
+      }
+
+      let cooldown;
+      try {
+        cooldown = await overallSchema.findOne({
+          userID: interaction.user.id,
+          guildID: interaction.guild.id,
+        });
+        if (!cooldown) {
+          cooldown = await overallSchema.create({
+            userID: interaction.user.id,
+            guildID: interaction.guild.id,
+            eventCooldown: 0,
+          });
+          cooldown.save();
+        }
+      } catch (e) {
+        console.error(e);
+      }
+
+      let timeout = 900; //setting cooldown
+
+      if (
+        !cooldown ||
+        timeout * 1000 - (Date.now() - cooldown.eventCooldown) > 0
+      ) {
+        let timecommand = prettyMilliseconds(timeout * 1000, {
+          verbose: true,
+          verbose: true,
+        });
+
+        const timeleft = prettyMilliseconds(
+          timeout * 1000 - (Date.now() - cooldown.eventCooldown),
+          {
+            verbose: true,
+          }
+        );
+        const timeleft2 =
+          timeout * 1000 - (Date.now() - cooldown.eventCooldown);
+
+        let newTime = Math.round(
+          (parseInt(Date.now()) + parseInt(Math.round(timeleft2))) / 1000
+        );
+
+        let cooldownEmbed = new EmbedBuilder()
+          .setDescription(
+            `You already did a partnership in the past **${timecommand}**.
+> You can partner again in <t:${newTime}:R> (${timeleft})`
+          )
+          .setColor(`303136`);
+
+        return interaction.reply({
+          embeds: [cooldownEmbed],
+          ephemeral: true,
+        });
+      } else {
+        await overallSchema.findOneAndUpdate(
+          {
+            userID: interaction.user.id,
+            guildID: interaction.guild.id,
+          },
+          {
+            eventCooldown: Date.now(),
+          }
+        );
       }
 
       interaction.reply({
@@ -306,7 +372,70 @@ module.exports = {
           ephemeral: true,
         });
       }
+      let cooldown;
+      try {
+        cooldown = await overallSchema.findOne({
+          userID: interaction.user.id,
+          guildID: interaction.guild.id,
+        });
+        if (!cooldown) {
+          cooldown = await overallSchema.create({
+            userID: interaction.user.id,
+            guildID: interaction.guild.id,
+            giveawayCooldown: 0,
+          });
+          cooldown.save();
+        }
+      } catch (e) {
+        console.error(e);
+      }
 
+      let timeout = 900; //setting cooldown
+
+      if (
+        !cooldown ||
+        timeout * 1000 - (Date.now() - cooldown.giveawayCooldown) > 0
+      ) {
+        let timecommand = prettyMilliseconds(timeout * 1000, {
+          verbose: true,
+          verbose: true,
+        });
+
+        const timeleft = prettyMilliseconds(
+          timeout * 1000 - (Date.now() - cooldown.giveawayCooldown),
+          {
+            verbose: true,
+          }
+        );
+        const timeleft2 =
+          timeout * 1000 - (Date.now() - cooldown.giveawayCooldown);
+
+        let newTime = Math.round(
+          (parseInt(Date.now()) + parseInt(Math.round(timeleft2))) / 1000
+        );
+
+        let cooldownEmbed = new EmbedBuilder()
+          .setDescription(
+            `You already did a partnership in the past **${timecommand}**.
+> You can partner again in <t:${newTime}:R> (${timeleft})`
+          )
+          .setColor(`303136`);
+
+        return interaction.reply({
+          embeds: [cooldownEmbed],
+          ephemeral: true,
+        });
+      } else {
+        await overallSchema.findOneAndUpdate(
+          {
+            userID: interaction.user.id,
+            guildID: interaction.guild.id,
+          },
+          {
+            giveawayCooldown: Date.now(),
+          }
+        );
+      }
       interaction.reply({
         content:
           "Giveaways was pinged <t:" +

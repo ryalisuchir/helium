@@ -34,7 +34,6 @@ class utilityFunction {
       const directory = splitted[splitted.length - 2];
 
       if (file.name) {
-        console.log(file.name);
         const properties = { directory, ...file };
         this.client.commands.set(file.name, properties);
       }

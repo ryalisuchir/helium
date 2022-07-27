@@ -24,7 +24,7 @@ module.exports = {
         embeds: [
           new EmbedBuilder()
             .setDescription(
-              "Use the following format:\n `kd log <user> <subsection>`"
+              "Use the following format:\n `krypto log <user> <subsection>`"
             )
             .setColor("303136"),
         ],
