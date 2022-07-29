@@ -7,6 +7,7 @@ const {
   ActionRowBuilder,
   ButtonBuilder,
   ButtonStyle,
+	PermissionFlagsBits
 } = require("discord.js");
 module.exports = {
   name: "log",
@@ -335,7 +336,7 @@ module.exports = {
         ],
       });
     }
-    return message.message.channel({
+    return message.channel.send({
       embeds: [
         embed,
         new EmbedBuilder()

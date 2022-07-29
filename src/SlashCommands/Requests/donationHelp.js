@@ -88,7 +88,7 @@ module.exports = {
               `Please donate for events using the following format:
 <:slash:980152110127669279> eventdonate <event> <amount> <message>
 
-**All event donations must exceed one million in total.**`
+**All event donations must exceed three million in total (per winner).**`
             )
             .setFooter({ text: "Thank you for donating..." })
             .setColor("303136"),
@@ -138,7 +138,8 @@ module.exports = {
               `Please donate for giveaways using the following format:
 <:slash:980152110127669279> giveawaydonate <time> <winners> <prize> <message> <requirements>
 
-**All giveaway donations must exceed one million in total.**`
+**All giveaway donations must exceed five million in total (per winner).**
+**Giveaways cannot exceed 6 hours if it is under 10M.**`
             )
             .setFooter({ text: "Thank you for donating..." })
             .setColor("303136"),
