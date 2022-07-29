@@ -358,7 +358,7 @@ Time: <t:${Math.round(Date.now() / 1000)}>`
     if (interaction.guild.id === "986631502362198036") {
       let donationProfileRoles;
       donationProfileRoles = await donationSchema.findOne({
-        userID: donation.user.id,
+        userID: ahh.user.id,
         guildID: interaction.guild.id,
       });
 
@@ -367,7 +367,7 @@ Time: <t:${Math.round(Date.now() / 1000)}>`
         parseInt(donationProfileRoles.donations.giveaway) +
         parseInt(donationProfileRoles.donations.heist);
 
-      const member = donation.user;
+      const member = ahh.user;
       if (totalAmount >= 10000000) {
         let role = interaction.guild.roles.cache.get("986711729385930803");
         const alreadyHasRole = member.roles.cache.has(role.id);

@@ -31,7 +31,12 @@ module.exports = {
       });
     }
 
-    if (args[1] !== "event" && args[1] !== "giveaway" && args[1] !== "heist") {
+    if (
+      args[1] !== "event" &&
+      args[1] !== "giveaway" &&
+      args[1] !== "heist" &&
+      args[1] !== "1k"
+    ) {
       return message.reply({
         embeds: [
           new EmbedBuilder()
@@ -42,6 +47,22 @@ module.exports = {
         ],
       });
     }
+
+    if (!args[2] && args[2] !== "1k") {
+      return message.reply({
+        emebds: [
+          new EmbedBuilder().setDescription(
+            "Your second argument must be `1k`."
+          ),
+        ],
+      });
+    }
+    if (
+      args[2] === "1k" &&
+      message.guild.id !== "986631502362198036" &&
+      message.guild.id !== "932785394355941406"
+    )
+      return;
 
     let serverProfile;
     try {
@@ -271,6 +292,17 @@ module.exports = {
           guildID: message.guild.id,
         });
       }
+      if (args[2] === "1k") {
+        if (args[1] === "event") {
+          dbUser.onethousand.event += toAdd;
+        }
+        if (args[1] === "giveaway") {
+          dbUser.onethousand.giveaway += toAdd;
+        }
+        if (args[1] === "heist") {
+          dbUser.onethousand.heist += toAdd;
+        }
+      }
 
       if (args[1] === "event") {
         dbUser.donations.event += toAdd;
@@ -292,8 +324,18 @@ module.exports = {
         ],
       });
     }
-
-    return message.reply({
+    if (args[2] === "1k") {
+      message.reply({
+        embeds: [
+          new EmbedBuilder()
+            .setDescription(
+              "These donations are part of the Krypto Danker's 1K event:"
+            )
+            .setColor("303136"),
+        ],
+      });
+    }
+    return message.message.channel({
       embeds: [
         embed,
         new EmbedBuilder()

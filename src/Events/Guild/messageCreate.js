@@ -4,7 +4,7 @@ const Event = require("../../Structures/Classes/event");
 module.exports = new Event("messageCreate", async (message) => {
   if (message.author.bot || !message.guild || message.webhookID) return;
   if (!message.content.toLowerCase().startsWith(client.prefix)) return;
-  console.log(message.content);
+
   if (!message.member)
     message.member = await message.guild.fetchMember(message);
   const [cmd, ...args] = message.content
@@ -15,16 +15,8 @@ module.exports = new Event("messageCreate", async (message) => {
   const command =
     client.commands.get(cmd.toLowerCase()) ||
     client.commands.get(client.aliases.get(cmd.toLowerCase()));
-  await console.log(client.commands);
-  console.log(command);
 
   if (!command) return;
-  console.log(command);
-  if (command.developersOnly) {
-    if (!trustedAccess.includes(message.author.id)) {
-      return;
-    }
-  }
 
   await command.run(client, message, args);
 });

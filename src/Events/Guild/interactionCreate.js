@@ -64,5 +64,25 @@ module.exports = new Event("interactionCreate", async (interaction) => {
         filtered.map((choice) => ({ name: choice, value: choice }))
       );
     }
+    if (interaction.commandName === "donations") {
+      const focusedValue = interaction.options.getFocused();
+      const choices = ["1k event", "normal"];
+      const filtered = choices.filter((choice) =>
+        choice.startsWith(focusedValue)
+      );
+      await interaction.respond(
+        filtered.map((choice) => ({ name: choice, value: choice }))
+      );
+    }
+    if (interaction.commandName === "leaderboard") {
+      const focusedValue = interaction.options.getFocused();
+      const choices = ["all", "event", "heist", "giveaway", "1k event"];
+      const filtered = choices.filter((choice) =>
+        choice.startsWith(focusedValue)
+      );
+      await interaction.respond(
+        filtered.map((choice) => ({ name: choice, value: choice }))
+      );
+    }
   }
 });
