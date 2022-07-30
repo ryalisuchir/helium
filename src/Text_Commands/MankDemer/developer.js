@@ -122,10 +122,51 @@ module.exports = {
     }
 
     if (args[0] === "allguild") {
-      const Guilds = client.guilds.cache.map((guild) => guild.name);
-      message.channel.send({
-        content: `${Guilds}`,
-      });
-    }
+let data = []
+            for (const [id, guild] of client.guilds.cache.sort(
+                (a, b) => b.memberCount - a.memberCount
+            )) {
+                data.push(
+                    `> ${guild.name} < (ID: ${guild.id})\n    Members: ${guild.memberCount}\n    Channels: ${guild.channels.cache.size}\n    Roles: ${guild.roles.cache.size}`
+                )
+            }
+            data = data.join('\n')
+            const link = await uploadResult(data)
+
+            await message.reply({
+							embeds: [
+								new EmbedBuilder()
+								.setDescription('Click on the button below:')
+								.setColor('303136')
+							],
+							components: [
+								new ActionRowBuilder()
+								.addComponents(
+									new ButtonBuilder()
+									.setStyle(ButtonStyle.Link)
+									.setLabel('Click here')
+									.setURL(`${link}`)
+								)
+							]
+						})
+        }
+
   },
 };
+
+async function uploadResult(content) {
+    const parseQueryString = (obj) => {
+        // stole daunt's code 😍
+        let res = ''
+        for (const key of Object.keys(obj)) {
+            res += `${res === '' ? '' : '&'}${key}=${obj[key]}`
+        }
+        return res
+    }
+    const res = await axios.post(
+        'https://hastepaste.com/api/create',
+        parseQueryString({ raw: false, text: encodeURIComponent(content) }),
+        { headers: { 'Content-Type': 'application/x-www-form-urlencoded' } }
+    )
+    return res.data
+}
