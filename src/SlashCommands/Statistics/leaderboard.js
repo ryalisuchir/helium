@@ -77,7 +77,7 @@ module.exports = {
       }
       let autocomplete = interaction.options.getString("type");
       let desc;
-			let place;
+      let place;
       if (autocomplete === "all") {
         find = find
           .filter((value) => interaction.guild.members.cache.get(value.userID))

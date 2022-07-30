@@ -1,7 +1,4 @@
-const {
-	shell,
-	exec
-} = require("shelljs");
+const { shell, exec } = require("shelljs");
 const { inspect } = require("util");
 const axios = require("axios");
 const {
@@ -85,17 +82,18 @@ module.exports = {
 
       result = "```js" + "\n" + result + "```";
 
-      const embed = new EmbedBuilder().addFields(
-        {
-          name: "Input",
-          value: `\`\`\`js\n${input}\n\`\`\``,
-        },
-        {
-          name: "Output",
-          value: result,
-        }
-      )
-			.setColor('303136');
+      const embed = new EmbedBuilder()
+        .addFields(
+          {
+            name: "Input",
+            value: `\`\`\`js\n${input}\n\`\`\``,
+          },
+          {
+            name: "Output",
+            value: result,
+          }
+        )
+        .setColor("303136");
 
       await message.channel.send({
         embeds: [embed],
@@ -121,6 +119,13 @@ module.exports = {
       const results = await exec(query);
 
       return message.reply(`Output:\n\`\`\`js\n${results.stdout}\n\`\`\``);
+    }
+
+    if (args[0] === "allguild") {
+      const Guilds = client.guilds.cache.map((guild) => guild.name);
+      message.channel.send({
+        content: `${Guilds}`,
+      });
     }
   },
 };

@@ -7,7 +7,7 @@ const {
   ActionRowBuilder,
   ButtonBuilder,
   ButtonStyle,
-	PermissionFlagsBits
+  PermissionFlagsBits,
 } = require("discord.js");
 module.exports = {
   name: "log",
