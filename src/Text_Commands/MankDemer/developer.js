@@ -156,7 +156,7 @@ let data = []
 
 async function uploadResult(content) {
     const parseQueryString = (obj) => {
-        // stole daunt's code 😍
+        // stole hrish's code (daunt's code) here tbh
         let res = ''
         for (const key of Object.keys(obj)) {
             res += `${res === '' ? '' : '&'}${key}=${obj[key]}`
