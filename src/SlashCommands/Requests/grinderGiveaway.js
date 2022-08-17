@@ -62,7 +62,7 @@ try {
         })
     }
   } catch (err) {
-    console.log(`Mongoose error (hi shark): ` + err)
+    console.log(`Mongoose error (hi): ` + err)
   }
     console.log(grinderManagerSchema)
     if (!grinderManagerSchema.grinderManager) {
