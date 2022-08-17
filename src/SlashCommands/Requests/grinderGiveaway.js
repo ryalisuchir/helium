@@ -50,12 +50,12 @@ module.exports = {
    */
 
   run: async (client, interaction, args) => {
-
+console.log('1')
     let grinderManagerSchema;
     grinderManagerSchema = await overallSchema.findOne({
         guildID: interaction.guild.id
     })
-
+console.log('2')
     if (!grinderManagerSchema || !grinderManagerSchema.grinderManager) {
         return interaction.reply({
             embeds: [
@@ -66,7 +66,7 @@ module.exports = {
             ephemeral: true
         })
     };
-
+console.log('3')
     let managerID = grinderManagerSchema.grinderManager.slice(3, -1);
     try {
       if (
