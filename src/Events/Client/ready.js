@@ -11,7 +11,7 @@ const {
   Collection,
   EmbedBuilder,
 } = require("discord.js");
-
+//
 module.exports = new Event("ready", async (client) => {
   client.user.setPresence({
     activities: [
