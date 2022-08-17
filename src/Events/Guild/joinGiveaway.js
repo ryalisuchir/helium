@@ -1,27 +1,16 @@
+const Event = require("../../Structures/Classes/event");
+const client = require("../../index");
 const {
-    MessageButton,
-    Client,
-    MessageEmbed,
-    Interaction,
-    MessageActionRow,
-    ButtonInteraction,
-    Message,
-    Collection,
-} = require('discord.js')
-const { Model } = require('mongoose')
+    EmbedBuilder,
+    ActionRowBuilder,
+    ButtonBuilder,
+    ButtonStyle
+};
 const giveawayModel = require('../../Schemas/giveawaySchema');
 const weeklySchema = require('../../Schemas/weeklyDonationSchema');
 
-module.exports = {
-    name: 'interactionCreate',
-    once: false,
-    /**
-     *
-     * @param {ButtonInteraction} button
-     * @param {Client} client
-     * @returns
-     */
-    async execute(button, client) {
+module.exports = new Event("interactionCreate", async (button) => {
+
         if (!button.isButton()) return
         if (
             button.customId !== 'giveaway-join' &&
@@ -144,7 +133,7 @@ module.exports = {
             }>`
             button.deferUpdate()
 
-            const embed = new MessageEmbed()
+            const embed = new EmbedBuilder()
                 .setTitle('🎊 You have won a giveaway! 🎊')
                 .setDescription(
                     `You have won the *reroll* for the giveaway **\`${gaww.prize}\`**!`
@@ -170,20 +159,19 @@ module.exports = {
                     100
                 ).toFixed(3)}%**`,
                 components: [
-                    new MessageActionRow().addComponents([
+                    new ActionRowBuilder().addComponents([
                         new MessageButton()
                             .setLabel('Jump')
                             .setStyle('LINK')
                             .setURL(
                                 `https://discord.com/channels/${gaww.guildId}/${gaww.channelId}/${gaww.messageId}`
                             ),
-                        new MessageButton()
+                        new ButtonBuilder()
                             .setLabel('Reroll')
                             .setCustomId('giveaway-reroll')
-                            .setStyle('SECONDARY'),
+                            .setStyle(ButtonStyle.Secondary),
                     ]),
                 ],
             })
         }
-    }
-};
+    };
