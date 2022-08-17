@@ -52,6 +52,7 @@ module.exports = {
   run: async (client, interaction, args) => {
 
     let grinderManagerSchema;
+    try {
     grinderManagerSchema = await overallSchema.findOne({
         guildID: interaction.guild.id
     })
@@ -60,6 +61,17 @@ module.exports = {
           guildID: interaction.guild.id
         })
     }
+  } catch (err) {
+    console.log(`Mongoose error (hi shark): ` + err)
+    return interaction.reply({
+      embeds: [
+        new EmbedBuilder()
+        .setDescription('I ran into an error, please try later.')
+        .setColor('303136')
+      ],
+      ephemeral: true
+    })
+  }
     console.log(grinderManagerSchema)
     if (!grinderManagerSchema.grinderManager) {
         return interaction.reply({
