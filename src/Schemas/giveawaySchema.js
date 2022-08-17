@@ -12,7 +12,7 @@ const giveawaySchema = new Schema({
     requirement: { type: Number, required: true },
     entries: [],
     WWinners: [],
-    lastEntryCount: { type: Number, required: true },
+    lastEntryCount: { type: Number, required: false },
 })
 
 module.exports = model('giveawaySchema', giveawaySchema)

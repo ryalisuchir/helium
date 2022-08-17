@@ -136,7 +136,9 @@ module.exports = {
         id: '905181806922461214'
     })
   );
-
+    interaction.reply({
+        content: 'Your giveaway will start momentarily...'
+    })
   const sentMessage = await interaction.channel.send({
     embeds: [giveawayEmbed],
     components: [giveawayRow]
