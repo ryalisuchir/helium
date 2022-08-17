@@ -50,8 +50,7 @@ module.exports = {
         interaction.options.getString("type") !== "all" &&
         interaction.options.getString("type") !== "event" &&
         interaction.options.getString("type") !== "heist" &&
-        interaction.options.getString("type") !== "giveaway" &&
-        interaction.options.getString("type") !== "1k event"
+        interaction.options.getString("type") !== "giveaway"
       ) {
         return interaction.reply({
           embeds: [
@@ -273,63 +272,6 @@ module.exports = {
           .replace("ٴ", "");
       }
 
-      if (autocomplete === "1k event") {
-        find = find
-          .filter((value) => interaction.guild.members.cache.get(value.userID))
-          .filter((u) => !u.bot)
-          .sort((a, b) => {
-            return (
-              b.onethousand.event +
-              b.onethousand.giveaway +
-              b.onethousand.heist -
-              (a.onethousand.event +
-                a.onethousand.giveaway +
-                a.onethousand.heist)
-            );
-          });
-
-        let top;
-        if (!isNaN(args[0])) {
-          top = args[0];
-        } else {
-          if (args[0] !== "all") {
-            top = 10;
-          } else {
-            top = find.length;
-          }
-        }
-
-        let mapped = find.map((value, index) => {
-          return `\`(#${index + 1})\` ${
-            client.users.cache.get(value.userID).tag
-          }: ⏣ **${(
-            value.onethousand.event +
-            value.onethousand.giveaway +
-            value.onethousand.heist
-          ).toLocaleString()}**`;
-        });
-
-        let test = mapped.filter((value) => {
-          return value.includes(interaction.user.tag);
-        });
-
-        place = test.join().slice(3, 4).toLocaleString();
-
-        desc = mapped
-          .slice(0, top)
-          .join("\n")
-          .replace("`(#1)`", `<:onenew:995023672215613530> `)
-          .replace("`(#2)`", `<:twonew:995023774565011497> `)
-          .replace("`(#3)`", `<:threenew:995023782823604234> `)
-          .replace("`(#4)`", `<a:sahadyellow:973374838519509083> `)
-          .replace("`(#5)`", `<a:sahadyellow:973374838519509083> `)
-          .replace("`(#6)`", `<a:sahadyellow:973374838519509083> `)
-          .replace("`(#7)`", `<a:sahadyellow:973374838519509083> `)
-          .replace("`(#8)`", `<a:sahadyellow:973374838519509083> `)
-          .replace("`(#9)`", `<a:sahadyellow:973374838519509083> `)
-          .replace("`(#10)`", `<a:sahadyellow:973374838519509083> `)
-          .replace("ٴ", "");
-      }
 
       let leaderBoardEmbed = new EmbedBuilder()
         .setTitle(`Leaderboard Donations (${autocomplete})`)

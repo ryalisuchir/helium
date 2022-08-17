@@ -1,5 +1,6 @@
 const overallSchema = require("../../Schemas/guildConfigurationSchema");
 const donationSchema = require("../../Schemas/donationSchema");
+const weeklySchema = require("../../Schemas/weeklyDonationSchema")
 const wait = require("node:timers/promises").setTimeout;
 const {
   EmbedBuilder,
@@ -64,6 +65,25 @@ module.exports = {
         {
           name: "user",
           description: "The user donating towards the heist.",
+          type: ApplicationCommandOptionType.User,
+          required: true,
+        },
+        {
+          name: "amount",
+          description: "The amount being donated.",
+          type: ApplicationCommandOptionType.Integer,
+          required: true,
+        },
+      ],
+    },
+    {
+      name: "grinder",
+      description: "Add grinder donations to a specific user.",
+      type: ApplicationCommandOptionType.Subcommand,
+      options: [
+        {
+          name: "user",
+          description: "The user grinding.",
           type: ApplicationCommandOptionType.User,
           required: true,
         },
@@ -313,6 +333,102 @@ module.exports = {
             .setColor("303136"),
         ],
       });
+    } else if (subcommand === "grinder") {
+      let serverProfile;
+      try {
+        serverProfile = await overallSchema.findOne({
+          guildID: interaction.guild.id,
+        });
+      } catch (err) {
+        console.log(err);
+      }
+      if (
+        !serverProfile ||
+        !serverProfile.grinderManager
+      )
+        return interaction.reply({
+          embeds: [
+            new EmbedBuilder()
+              .setDescription(
+                `This guild has not setup grinder managers. Please use the following command:
+<:slash:980152110127669279> setmanager <grinder> <role>`
+              )
+              .setColor("303136"),
+          ],
+        });
+      let managerID = serverProfile.grinderManager.slice(3, -1);
+      if (
+        !interaction.member.roles.cache.has(managerID) &&
+        !interaction.member.permissions.has([
+          PermissionFlagsBits.Administrator,
+        ]) &&
+        interaction.user.id !== "823933160785838091"
+      ) {
+        return interaction.reply({
+          embeds: [
+            new EmbedBuilder()
+              .setDescription(
+                "You do not have the needed permissions to add donations in the grinder category."
+              )
+              .setColor("303136"),
+          ],
+          ephemeral: true,
+        });
+      }
+
+      let grinderDonation = {
+        amount: interaction.options.getInteger("amount"),
+        user: interaction.options.getUser("user"),
+      };
+
+      let dSchema;
+      dSchema = await donationSchema.findOne({
+        userID: grinderDonation.user.id,
+        guildID: interaction.guild.id,
+      });
+      if (!dSchema) {
+        dSchema = new donationSchema({
+          userID: grinderDonation.user.id,
+          guildID: interaction.guild.id,
+        });
+      }
+
+			let wSchema;
+			wSchema = await weeklySchema.findOne({
+				userID: grinderDonation.user.id,
+				guildID: interaction.guild.id
+			});
+			if (!wSchema) {
+				wSchema = new weeklySchema({
+					userID: grinderDonation.user.id,
+					guildID: interaction.guild.id
+				})
+			}
+
+      let amountDonated = dSchema.grinderDonations.totalGrinder;
+			let weeklyDonated = wSchema.thisWeek;
+      dSchema.grinderDonations.totalGrinder = Math.round(
+        amountDonated + grinderDonation.amount
+      );
+      wSchema.thisWeek = Math.round(
+        weeklyDonated + grinderDonation.amount
+      );
+      await dSchema.save();
+			await wSchema.save();
+
+      message = await interaction.reply({
+        embeds: [
+          new EmbedBuilder()
+            .setDescription(
+              `Added **⏣ ${grinderDonation.amount}** to ${grinderDonation.user}'s *grinder* donations.
+
+**Total amount donated for this week:** ⏣ ${Math.round(
+        weeklyDonated + grinderDonation.amount
+      )}`
+            )
+            .setColor("303136"),
+        ],
+      });
     }
 
     let newSchema;
@@ -320,19 +436,18 @@ module.exports = {
       guildID: interaction.guild.id,
     });
     let channel = interaction.guild.channels.cache.get(newSchema.donationLogs);
-
-    try {
-      let ahh = {
+      const interactionOptions = {
         user: interaction.options.getMember("user"),
         amount: interaction.options.getInteger("amount"),
       };
+    try {
       channel.send({
         embeds: [
           new EmbedBuilder()
             .setDescription(
               `${interaction.user} successfully added donations:
-<:whiteDot:962849666674860142> **User:** ${ahh.user}
-<:whiteDot:962849666674860142> **Amount:** ${ahh.amount.toLocaleString()}
+<:whiteDot:962849666674860142> **User:** ${interactionOptions.user}
+<:whiteDot:962849666674860142> **Amount:** ${interactionOptions.amount.toLocaleString()}
 <:whiteDot:962849666674860142> **Category:** ${subcommand}
 
 Time: <t:${Math.round(Date.now() / 1000)}>`
@@ -358,16 +473,16 @@ Time: <t:${Math.round(Date.now() / 1000)}>`
     if (interaction.guild.id === "986631502362198036") {
       let donationProfileRoles;
       donationProfileRoles = await donationSchema.findOne({
-        userID: ahh.user.id,
+        userID: interactionOptions.user.id,
         guildID: interaction.guild.id,
       });
 
       let totalAmount =
         parseInt(donationProfileRoles.donations.event) +
         parseInt(donationProfileRoles.donations.giveaway) +
-        parseInt(donationProfileRoles.donations.heist);
+        parseInt(donationProfileRoles.donations.heist) + parseInt(donationProfileRoles.grinderDonations.totalGrinder);
 
-      const member = ahh.user;
+      const member = interactionOptions.user;
       if (totalAmount >= 10000000) {
         let role = interaction.guild.roles.cache.get("986711729385930803");
         const alreadyHasRole = member.roles.cache.has(role.id);

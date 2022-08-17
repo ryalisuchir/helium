@@ -1,7 +1,11 @@
 const Event = require("../../Structures/Classes/event");
 const { version: discordjsVersion } = require("discord.js");
+const {
+	weeklyDonations
+} = require('../../Schemas/weeklyDonationSchema');
 let ms = require("ms");
 const chalk = require("chalk");
+const cron = require('cron');
 const {
   ButtonBuilder,
   ButtonStyle,
@@ -11,8 +15,15 @@ const {
   Collection,
   EmbedBuilder,
 } = require("discord.js");
-//
+
 module.exports = new Event("ready", async (client) => {
+	
+let scheduledMessage = new cron.CronJob('0 0 * * 0', async () => {
+  let wSchema;
+	wSchema = await weeklyDonations.findOneAndDelete({
+		userID: ({ })
+	})
+});
   client.user.setPresence({
     activities: [
       {

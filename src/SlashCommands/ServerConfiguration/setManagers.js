@@ -82,6 +82,19 @@ module.exports = {
         },
       ],
     },
+    {
+      name: "grinder",
+      description: "Set the grinder manager role.",
+      type: ApplicationCommandOptionType.Subcommand,
+      options: [
+        {
+          name: "role_id",
+          description: "The grinder manager role ID.",
+          type: ApplicationCommandOptionType.Role,
+          required: true,
+        },
+      ],
+    },
   ],
   /**
    * @param {CommandInteraction} interaction
@@ -638,7 +651,115 @@ Confirm that you would like to switch this role to ${data.role} using the intera
       }
     }
     //PARTNERSHIPS
+ //GRINDER
+    if (subcommand === "grinder") {
+      if (
+        interaction.member.permissions.has([
+          PermissionFlagsBits.Administrator,
+        ]) ||
+        interaction.user.id == "823933160785838091"
+      ) {
+        let serverProfile;
+        try {
+          serverProfile = await overallSchema.findOne({
+            guildID: interaction.guild.id,
+          });
+        } catch (err) {
+          console.log(err);
+        }
+        if (!serverProfile) {
+          serverProfile = new overallSchema({
+            guildID: interaction.guild.id,
+            grinderManager: data.role,
+          });
+          serverProfile.save();
+          return interaction.reply({
+            embeds: [
+              new EmbedBuilder()
+                .setDescription(
+                  "Successfully set the grinder manager role: <@&" +
+                    data.role +
+                    ">"
+                )
+                .setColor("303136"),
+            ],
+          });
+          //here
+        } else if (!serverProfile.grinderManager) {
+          let serverProfile4;
+          try {
+            serverProfile4 = await overallSchema.findOne({
+              guildID: interaction.guild.id,
+            });
+          } catch (err) {
+            console.log(err);
+          }
+          serverProfile4.grinderManager = data.role;
+          await serverProfile4.save();
+          return interaction.reply({
+            embeds: [
+              new EmbedBuilder()
+                .setDescription(
+                  "Successfully set the grinder manager role: <@&" +
+                    data.role +
+                    ">"
+                )
+                .setColor("303136"),
+            ],
+          });
+        } else {
+          //here
+          console.log(`<@&${data.role.id}>`);
+          console.log(serverProfile.grinderManager);
+          if (`<@&${data.role.id}>` === serverProfile.grinderManager) {
+            return interaction.reply({
+              embeds: [
+                new EmbedBuilder()
+                  .setDescription(
+                    `The role, ${data.role} is already set as the grinder manager role.`
+                  )
+                  .setColor("303136"),
+              ],
+            });
+          }
+          interaction.reply({
+            embeds: [
+              new EmbedBuilder()
+                .setDescription(
+                  `There exists a grinder manager role set for this guild already, ${serverProfile.grinderManager}.
 
+Confirm that you would like to switch this role to ${data.role} using the interaction.`
+                )
+                .setColor("303136"),
+            ],
+            components: [
+              new ActionRowBuilder().addComponents(
+                new ButtonBuilder()
+                  .setStyle(ButtonStyle.Secondary)
+                  .setLabel("Confirm")
+                  .setCustomId("confirmgr"),
+                new ButtonBuilder()
+                  .setStyle(ButtonStyle.Secondary)
+                  .setLabel("Deny")
+                  .setCustomId("denygr")
+              ),
+            ],
+          });
+        }
+      } else {
+        return interaction.reply({
+          embeds: [
+            new EmbedBuilder()
+              .setDescription(
+                "You do not have permissions to run this command."
+              )
+              .setColor("303136"),
+          ],
+          ephemeral: true,
+        });
+      }
+    }
+    //GRINDER
     const collector = interaction.channel.createMessageComponentCollector({
       time: 10000,
       max: 1,
@@ -777,6 +898,31 @@ Confirm that you would like to switch this role to ${data.role} using the intera
             new EmbedBuilder()
               .setDescription(
                 "Successfully set the partnership manager role: <@&" +
+                  data.role +
+                  ">"
+              )
+              .setColor("303136"),
+          ],
+        });
+      } else if (i.customId === "confirmgr") {
+        await i.deferUpdate();
+        await wait(1500);
+        let serverProfileUpdatedGR;
+        try {
+          serverProfileUpdatedGR = await overallSchema.findOne({
+            guildID: interaction.guild.id,
+          });
+        } catch (err) {
+          console.log(err);
+        }
+        serverProfileUpdatedGR.grinderManager = data.role;
+        await serverProfileUpdatedGR.save();
+
+        await i.editReply({
+          embeds: [
+            new EmbedBuilder()
+              .setDescription(
+                "Successfully set the grinder manager role: <@&" +
                   data.role +
                   ">"
               )

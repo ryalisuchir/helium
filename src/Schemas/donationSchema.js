@@ -8,7 +8,6 @@ const donationSchema = new Schema({
     giveaway: { type: Boolean, required: false, default: false },
     heist: { type: Boolean, required: false, default: false },
     middleman: { type: Boolean, required: false, default: 0 },
-    onethousand: { type: Boolean, required: false, default: 0 },
   },
   timesDonated: {
     event: { type: Number, required: false, default: 0 },
@@ -25,11 +24,10 @@ const donationSchema = new Schema({
     event: { type: Number, required: false, default: 0 },
     giveaway: { type: Number, required: false, default: 0 },
     heist: { type: Number, required: false, default: 0 },
+		grinder: { type: Number, required: false, default: 0 },
   },
-  onethousand: {
-    event: { type: Number, required: false, default: 0 },
-    giveaway: { type: Number, required: false, default: 0 },
-    heist: { type: Number, required: false, default: 0 },
+  grinderDonations: {
+		totalGrinder: { type: Number, required: false, default: 0 },
   },
 });
 module.exports = model("donationSchema", donationSchema);

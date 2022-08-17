@@ -76,7 +76,7 @@ module.exports = new Event("interactionCreate", async (interaction) => {
     }
     if (interaction.commandName === "leaderboard") {
       const focusedValue = interaction.options.getFocused();
-      const choices = ["all", "event", "heist", "giveaway", "1k event"];
+      const choices = ["all", "event", "heist", "giveaway"];
       const filtered = choices.filter((choice) =>
         choice.startsWith(focusedValue)
       );

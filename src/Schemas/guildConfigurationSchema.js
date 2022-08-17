@@ -5,6 +5,7 @@ const guildConfiguration = new Schema({
   eventsManager: { type: String, required: false },
   giveawayManager: { type: String, required: false },
   partnershipManager: { type: String, required: false },
+	grinderManager: { type: String, required: false },
   heistManager: { type: String, required: false },
   middlemanManager: { type: String, required: false },
   eventsPing: { type: String, required: false },
@@ -20,4 +21,5 @@ const guildConfiguration = new Schema({
     default: 0,
   },
 });
+
 module.exports = model("guildConfiguration", guildConfiguration);
