@@ -50,13 +50,18 @@ module.exports = {
    */
 
   run: async (client, interaction, args) => {
-console.log('hi')
+
     let grinderManagerSchema;
     grinderManagerSchema = await overallSchema.findOne({
         guildID: interaction.guild.id
     })
+    if (!grinderManagerSchema) {
+        grinderManagerSchema = new overallSchema({
+          guildID: interaction.guild.id
+        })
+    }
     console.log(grinderManagerSchema)
-    if (!grinderManagerSchema || !grinderManagerSchema.grinderManager) {
+    if (!grinderManagerSchema.grinderManager) {
         return interaction.reply({
             embeds: [
                 new EmbedBuilder()
