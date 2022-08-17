@@ -50,7 +50,7 @@ module.exports = {
    */
 
   run: async (client, interaction, args) => {
-
+console.log('hi')
     let grinderManagerSchema;
     grinderManagerSchema = await overallSchema.findOne({
         guildID: interaction.guild.id
