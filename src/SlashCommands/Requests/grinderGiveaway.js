@@ -137,7 +137,8 @@ module.exports = {
     })
   );
     interaction.reply({
-        content: 'Your giveaway will start momentarily...'
+        content: 'Your giveaway will start momentarily...',
+        ephemeral: true
     })
   const sentMessage = await interaction.channel.send({
     embeds: [giveawayEmbed],
