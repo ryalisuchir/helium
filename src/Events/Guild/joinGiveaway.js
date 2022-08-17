@@ -5,7 +5,7 @@ const {
     ActionRowBuilder,
     ButtonBuilder,
     ButtonStyle
-};
+} = require('discord.js');
 const giveawayModel = require('../../Schemas/giveawaySchema');
 const weeklySchema = require('../../Schemas/weeklyDonationSchema');
 
