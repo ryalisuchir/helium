@@ -52,21 +52,11 @@ module.exports = {
   run: async (client, interaction, args) => {
 
     let grinderManagerSchema;
-try {
     grinderManagerSchema = await overallSchema.findOne({
         guildID: interaction.guild.id
     })
-    if (!grinderManagerSchema) {
-        grinderManagerSchema = new overallSchema({
-          guildID: interaction.guild.id
-        })
-        await grinderManagerSchema.save()
-    }
-  } catch (err) {
-    console.log(`Mongoose error (hi): ` + err)
-  }
-    console.log(grinderManagerSchema)
-    if (!grinderManagerSchema.grinderManager) {
+
+    if (!grinderManagerSchema || !grinderManagerSchema.grinderManager) {
         return interaction.reply({
             embeds: [
                 new EmbedBuilder()
