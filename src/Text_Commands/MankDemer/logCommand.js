@@ -35,8 +35,7 @@ module.exports = {
     if (
       args[1] !== "event" &&
       args[1] !== "giveaway" &&
-      args[1] !== "heist" &&
-      args[1] !== "1k"
+      args[1] !== "heist"
     ) {
       return message.reply({
         embeds: [
@@ -48,22 +47,6 @@ module.exports = {
         ],
       });
     }
-
-    if (!args[2] && args[2] !== "1k") {
-      return message.reply({
-        emebds: [
-          new EmbedBuilder().setDescription(
-            "Your second argument must be `1k`."
-          ),
-        ],
-      });
-    }
-    if (
-      args[2] === "1k" &&
-      message.guild.id !== "986631502362198036" &&
-      message.guild.id !== "932785394355941406"
-    )
-      return;
 
     let serverProfile;
     try {
@@ -293,17 +276,6 @@ module.exports = {
           guildID: message.guild.id,
         });
       }
-      if (args[2] === "1k") {
-        if (args[1] === "event") {
-          dbUser.onethousand.event += toAdd;
-        }
-        if (args[1] === "giveaway") {
-          dbUser.onethousand.giveaway += toAdd;
-        }
-        if (args[1] === "heist") {
-          dbUser.onethousand.heist += toAdd;
-        }
-      }
 
       if (args[1] === "event") {
         dbUser.donations.event += toAdd;
@@ -325,17 +297,7 @@ module.exports = {
         ],
       });
     }
-    if (args[2] === "1k") {
-      message.reply({
-        embeds: [
-          new EmbedBuilder()
-            .setDescription(
-              "These donations are part of the Krypto Danker's 1K event:"
-            )
-            .setColor("303136"),
-        ],
-      });
-    }
+
     return message.channel.send({
       embeds: [
         embed,
