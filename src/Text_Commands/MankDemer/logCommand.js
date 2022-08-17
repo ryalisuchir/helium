@@ -31,7 +31,6 @@ module.exports = {
         ],
       });
     }
-    //doesn't support grinders
 
     if (
       args[1] !== "event" &&
