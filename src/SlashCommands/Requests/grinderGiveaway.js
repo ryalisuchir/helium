@@ -55,6 +55,7 @@ module.exports = {
     grinderManagerSchema = await overallSchema.findOne({
         guildID: interaction.guild.id
     })
+    console.log(grinderManagerSchema)
     if (!grinderManagerSchema || !grinderManagerSchema.grinderManager) {
         return interaction.reply({
             embeds: [
