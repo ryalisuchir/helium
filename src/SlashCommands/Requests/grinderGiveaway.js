@@ -60,6 +60,7 @@ try {
         grinderManagerSchema = new overallSchema({
           guildID: interaction.guild.id
         })
+        await grinderManagerSchema.save()
     }
   } catch (err) {
     console.log(`Mongoose error (hi): ` + err)

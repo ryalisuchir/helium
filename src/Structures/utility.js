@@ -56,16 +56,6 @@ class utilityFunction {
       }
     });
 
-    // Events
-    const eventFiles = await globPromise(`${__dirname}/../Events/**/*.js`);
-    eventFiles.map((value) => {
-      /**
-       * @type {Event}
-       */
-      let file = require(value);
-      this.client.on(file.event, file.run);
-    });
-
     /**
      * @param {Client} client
      */
