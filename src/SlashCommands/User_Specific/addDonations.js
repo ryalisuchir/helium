@@ -405,9 +405,9 @@ module.exports = {
 				})
 			}
 
-      let amountDonated = dSchema.grinderDonations.totalGrinder;
-			let weeklyDonated = wSchema.thisWeek;
-      dSchema.grinderDonations.totalGrinder = Math.round(
+      let amountDonated = dSchema.donations.grinder;
+			let weeklyDonated = wSchema.grinderDonations.thisWeek;
+      dSchema.donations.grinder = Math.round(
         amountDonated + grinderDonation.amount
       );
       wSchema.thisWeek = Math.round(

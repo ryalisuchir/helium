@@ -26,8 +26,6 @@ const donationSchema = new Schema({
     heist: { type: Number, required: false, default: 0 },
 		grinder: { type: Number, required: false, default: 0 },
   },
-  grinderDonations: {
-		totalGrinder: { type: Number, required: false, default: 0 },
-  },
+
 });
 module.exports = model("donationSchema", donationSchema);
