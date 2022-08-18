@@ -145,9 +145,9 @@ module.exports = new Event("interactionCreate", async (button) => {
                 }**.`,
                 components: [
                     new ActionRowBuilder().addComponents([
-                        new MessageButton()
+                        new ButtonBuilder()
                             .setLabel('Jump')
-                            .setStyle('LINK')
+                            .setStyle(ButtonStyle.Link)
                             .setURL(
                                 `https://discord.com/channels/${gaww.guildId}/${gaww.channelId}/${gaww.messageId}`
                             ),
