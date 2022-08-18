@@ -79,10 +79,10 @@ module.exports = new Event("ready", async (client) => {
                 winners = winners.map((a) => `<@${a}>`).join(" ");
 
                 message.edit({
-                  content: `🎉 Giveaway Ended 🎉`,
+                  content: `Giveaway Ended:`,
                   embeds: [
                     new EmbedBuilder()
-                      .setTitle(giveaway.prize)
+                      .setTitle(`Grinder Giveaway : ${giveaway.prize}`)
                       .setFooter({
                         text: `Winners: ${giveaway.winners} | Ended at`,
                       })
