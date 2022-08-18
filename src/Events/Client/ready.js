@@ -15,6 +15,7 @@ const {
   EmbedBuilder,
 } = require("discord.js");
 const entries = new Collection();
+let gawCounter1 = 0
 
 module.exports = new Event("ready", async (client) => {
   gawCounter1++;
