@@ -74,17 +74,17 @@ module.exports = new Event("interactionCreate", async (button) => {
             }
 
             let weeklySS = await weeklySchema.findOne({
-                guildID: interaction.guild.id,
-                userID: interaction.user.id
+                guildID: button.guild.id,
+                userID: button.user.id
             })
             if (!weeklySS) {
                 weeklySS = new weeklySchema({
-                    guildID: interaction.guild.id,
-                userID: interaction.user.id
+                    guildID: button.guild.id,
+                userID: button.user.id
                 })
             }
             if (weeklySS.grinderDonations.thisWeek < parseInt(gaw.requirement)) {
-                return interaction.reply({
+                return button.reply({
                     embeds: [
                         new EmbedBuilder()
                         .setDescription(`
