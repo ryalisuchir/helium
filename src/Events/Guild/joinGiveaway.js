@@ -99,7 +99,7 @@ module.exports = new Event("interactionCreate", async (button) => {
                 })
             }
           
-            interaction.reply({
+            button.reply({
                 embeds: [
                     new EmbedBuilder()
                     .setDescription(`You have successfully joined the giveaway for: ${gaw.prize}.`)

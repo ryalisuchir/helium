@@ -15,10 +15,9 @@ const {
   EmbedBuilder,
 } = require("discord.js");
 const entries = new Collection();
-let gawCounter1 = 0
 
 module.exports = new Event("ready", async (client) => {
-  gawCounter1++;
+
   let scheduledMessage = new cron.CronJob("0 0 * * 0", async () => {
     let wSchema;
     wSchema = await weeklyDonations.findOneAndDelete({
@@ -34,8 +33,6 @@ module.exports = new Event("ready", async (client) => {
     status: "idle",
   });
   setInterval(async function () {
-    if (gawCounter1 > 5) {
-      gawCounter1 = 0;
 
       const Query = await giveawayModel.find({
         hasEnded: false,
@@ -164,9 +161,7 @@ module.exports = new Event("ready", async (client) => {
           console.log(err);
         }
       }
-    }
   }, 1000);
-  ``;
 
   console.log(chalk.red.bold("——————————[ Client Statistics ]——————————"));
   console.log(
