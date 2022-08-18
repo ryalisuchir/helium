@@ -81,7 +81,7 @@ module.exports = new Event("ready", async (client) => {
                 message.edit({
                   content: `🎉 Giveaway Ended 🎉`,
                   embeds: [
-                    new MessageEmbed()
+                    new EmbedBuilder()
                       .setTitle(giveaway.prize)
                       .setFooter({
                         text: `Winners: ${giveaway.winners} | Ended at`,
