@@ -408,10 +408,10 @@ module.exports = {
       let amountDonated = dSchema.donations.grinder;
 			let weeklyDonated = wSchema.grinderDonations.thisWeek;
       dSchema.donations.grinder = Math.round(
-        amountDonated + grinderDonation.amount
+        parseInt(amountDonated) + parseInt(grinderDonation.amount)
       );
-      wSchema.thisWeek = Math.round(
-        weeklyDonated + grinderDonation.amount
+      wSchema.grinderDonations.thisWeek = Math.round(
+        parseInt(weeklyDonated) + parseInt(grinderDonation.amount)
       );
       await dSchema.save();
 			await wSchema.save();
