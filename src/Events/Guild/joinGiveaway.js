@@ -174,4 +174,4 @@ module.exports = new Event("interactionCreate", async (button) => {
                 ],
             })
         }
-    };
+    });
