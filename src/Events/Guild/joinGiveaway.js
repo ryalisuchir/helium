@@ -99,6 +99,14 @@ module.exports = new Event("interactionCreate", async (button) => {
                 })
             }
           
+            interaction.reply({
+                embeds: [
+                    new EmbedBuilder()
+                    .setDescription(`You have successfully joined the giveaway for: ${gaw.prize}.`)
+                    .setColor('303136')
+                ],
+                ephemeral: true
+            })
 
             await giveawayModel.findOneAndUpdate(
                 {
@@ -111,8 +119,6 @@ module.exports = new Event("interactionCreate", async (button) => {
                 }
             )
 
-
-
         } else if (button.customId === 'giveaway-reroll') {
             const giveawayMessageId =
                 button.message.components[0].components[0].url
@@ -123,7 +129,7 @@ module.exports = new Event("interactionCreate", async (button) => {
             })
             if (button.user.id !== gaww.hosterId) {
                 return button.reply({
-                    content: `Only the host of the giveaway can reroll winners...`,
+                    content: `Only the host of the giveaway can reroll giveaways.`,
                     ephemeral: true,
                 })
             }
@@ -133,31 +139,10 @@ module.exports = new Event("interactionCreate", async (button) => {
             }>`
             button.deferUpdate()
 
-            const embed = new EmbedBuilder()
-                .setTitle('🎊 You have won a giveaway! 🎊')
-                .setDescription(
-                    `You have won the *reroll* for the giveaway **\`${gaww.prize}\`**!`
-                )
-                .addField('Host', `<@${gaww.hosterId}>`, true)
-                .addField(
-                    'Giveaway Link',
-                    `[Jump](https://discord.com/channels/${gaww.guildId}/${gaww.channelId}/${gaww.messageId})`,
-                    true
-                )
-                .setColor('GREEN')
-                .setTimestamp()
-            const id = winner.replace('<@', '').replace('>', '')
-            client.functions.dmUser(client, id, {
-                content: `<@${id}>`,
-                embeds: embed,
-            })
             await button.channel.send({
                 content: `${winner}\nYou have won the reroll for **${
                     gaww.prize
-                }**! Your chances of winning the giveaway were **${(
-                    (1 / gaww.entries.length) *
-                    100
-                ).toFixed(3)}%**`,
+                }**.`,
                 components: [
                     new ActionRowBuilder().addComponents([
                         new MessageButton()
