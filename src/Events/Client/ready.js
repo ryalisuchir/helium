@@ -33,7 +33,7 @@ module.exports = new Event("ready", async (client) => {
     status: "idle",
   });
   setInterval(async function () {
-
+    const processing = new Collection()
       const Query = await giveawayModel.find({
         hasEnded: false,
         endsAt: {
