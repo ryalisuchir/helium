@@ -92,7 +92,7 @@ module.exports = new Event("interactionCreate", async (button) => {
                         Your weekly donations: **⏣ ${weeklySS.grinderDonations.thisWeek}**
                         Requirement for this giveaway: **⏣ ${gaw.requirement.toLocaleString()}**
                         
-                        You must donate **⏣ ${Math.round(gaw.requirement.toLocaleString() - weeklySS.grinderDonations.thisWeek)}** more.`)
+                        You must donate **⏣ ${Math.round(parseInt(gaw.requirement) - parseInt(weeklySS.grinderDonations.thisWeek))}** more.`)
 .setColor('303136')
                     ],
                     ephemeral: true
