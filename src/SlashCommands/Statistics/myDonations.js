@@ -61,12 +61,12 @@ ${eventDonation.user}'s contributions in ${interaction.guild.name}:
 <:whiteDot:962849666674860142> **Event Donations:** ⏣ ${dSchema.donations.event.toLocaleString()}
 <:whiteDot:962849666674860142> **Giveaway Donations:** ⏣ ${dSchema.donations.giveaway.toLocaleString()}
 <:whiteDot:962849666674860142> **Heist Donations:** ⏣ ${dSchema.donations.heist.toLocaleString()}
-<:whiteDot:962849666674860142> **Grinder Donations:** ⏣ ${dSchema.grinderDonations.totalGrinder.toLocaleString()}
+<:whiteDot:962849666674860142> **Grinder Donations:** ⏣ ${dSchema.donations.grinder.toLocaleString()}
 
 \` - \` **Total Donations:** ⏣ ${Math.round(
                 dSchema.donations.event +
                   dSchema.donations.giveaway +
-                  dSchema.donations.heist + dSchema.grinderDonations.totalGrinder
+                  dSchema.donations.heist + dSchema.donations.grinder
               ).toLocaleString()}`
             )
             .setColor("303136"),
