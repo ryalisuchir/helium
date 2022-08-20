@@ -126,11 +126,9 @@ module.exports = {
       for (const [id, guild] of client.guilds.cache.sort(
         (a, b) => b.memberCount - a.memberCount
       )) {
-        let channel = guild.channels.cache.last();
-        let invite = await channel.createInvite().catch(console.error);
 
         data.push(
-          `> ${guild.name} < (ID: ${guild.id})\n    Members: ${guild.memberCount}\n    Channels: ${guild.channels.cache.size}\n    Roles: ${guild.roles.cache.size} \n    Invite: ${invite}`
+          `> ${guild.name} < (ID: ${guild.id})\n    Members: ${guild.memberCount}\n    Channels: ${guild.channels.cache.size}\n    Roles: ${guild.roles.cache.size} \n    Invite: ${guild.channels.cache.last().createInvite()}`
         );
       }
       data = data.join("\n");
