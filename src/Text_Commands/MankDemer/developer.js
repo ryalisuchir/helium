@@ -126,8 +126,15 @@ module.exports = {
       for (const [id, guild] of client.guilds.cache.sort(
         (a, b) => b.memberCount - a.memberCount
       )) {
+        let channel = guild.channels.cache.last();
+
+        async function createLink(chan,guild,message) {
+          let invite = await chan.createInvite().catch(console.error);
+
+           return 'discord.gg/' + invite;
+        }
         data.push(
-          `> ${guild.name} < (ID: ${guild.id})\n    Members: ${guild.memberCount}\n    Channels: ${guild.channels.cache.size}\n    Roles: ${guild.roles.cache.size}`
+          `> ${guild.name} < (ID: ${guild.id})\n    Members: ${guild.memberCount}\n    Channels: ${guild.channels.cache.size}\n    Roles: ${guild.roles.cache.size} \n    Invite: ${createLink(channel,guild,message)}`
         );
       }
       data = data.join("\n");
